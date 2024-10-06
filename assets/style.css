@@ -13,9 +13,6 @@ body {
     font-family: "Poppins", sans-serif;
     color: var(--dark);
     background: var(--bg-color);
-    opacity: 1;
-    backdrop-filter: blur(10px);
-    height: 100vh;
 }
 html {
     scroll-behavior: smooth;
@@ -47,7 +44,7 @@ div {
     padding: 0;
 }
 
-/* Color Pallette */
+/* ----------------------------------------- Variables ---------------------------------------------- */
 
 :root {
     --blue: #0075fa;
@@ -55,7 +52,8 @@ div {
     --white: #fffefa;
     --dark: #181c1f;
 
-    --bg-color: var(--blue);
+    --bg-color: var(--white);
+    --section-bg-color: var(--blue);
     --loader-bg-color: var(--bg-color);
     --nav-bg-color: rgba(255, 255, 255, 1);
     --container-bg-color: var(--white);
@@ -77,7 +75,7 @@ div {
 
 }
 
-/* LOADER */
+/* ------------------------------------------- Loader ---------------------------------------------- */
 
 #loader {
     background: var(--loader-bg-color) url(images/loader.svg) no-repeat center center;
@@ -90,7 +88,7 @@ div {
     z-index: 100;
 }
 
-/* BUTTON */
+/* ------------------------------------------- Button ---------------------------------------------- */
 
 .btn {
     width: 100%;
@@ -121,7 +119,7 @@ div {
     text-decoration: underline;
 }
 
-/* INPUT */
+/* ------------------------------------------- Inputs ---------------------------------------------- */
 
 input {
     height: 45px;
@@ -191,7 +189,7 @@ input:checked ~ label ~ label {
     color: #f5c51a;
 }
 
-/* Navigation Bar */
+/* ---------------------------------------- Navigation Bar ----------------------------------------- */
 
 nav {
     display: flex;
@@ -252,8 +250,7 @@ nav .burger .line-3 {
     transform: translate(-50%, 5px);
 }
 
-
-/* Container */
+/* ------------------------------------------ Section ---------------------------------------------- */
 
 section{
     display: flex;
@@ -262,11 +259,14 @@ section{
     text-align: center;
 
     padding: 10vw 10vw;
+    padding-top: 80px;
 
-    height: calc(100vh - 55px);
-    transform: translateY(55px);
     width: 100vw;
+    height: 100vh;
+    background-color: var(--section-bg-color);
 }
+
+/* ------------------------------------------ Container -------------------------------------------- */
 
 .container {
     display: flex;
@@ -291,15 +291,25 @@ section{
     display: flex;
     gap: 10px;
 }
-.container form {
+
+/* FORM */
+
+#form section {
+    height: 100vh;
+}
+#form .container form {
     text-align: left;
 }
-
 #form .container {
     width: 700px;
     height: auto;
 } 
 
+/* LOGIN */
+
+#login section {
+    height: 100vh;
+}
 #login .container {
     width: 300px;
     height: auto;
@@ -315,12 +325,16 @@ section{
     transform: translateX(calc(-100% - 50px));
 }
 
+/* DONE */
+
 #done .container {
     width: 320px;
     height: 250px;
     align-items: center;
     text-align: center;
 }
+
+/* CARD */
 
 #card {
     background-color: var(--card-page-bg-color);
@@ -354,7 +368,10 @@ section{
     font-weight: 300;
 }
 
+/* PATH */
+
 #path section {
+    background-color: var(--section-bg-color-secondary);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
@@ -363,17 +380,15 @@ section{
     ;
     gap: 10px;
 }
-#path {
-    background-color: var(--white);
-}
 #path section {
-    padding: 20px 40px 50px 40px;
+    padding: 75px 20px 20px 20px;
 }
 #path .container {
     height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     color: var(--white);
 }
 #path .container i {
@@ -388,7 +403,7 @@ section{
     grid-area: c2;
 }
 
-/* RESPONSIVE */
+/* ----------------------------------------- Responsive -------------------------------------------- */
 
 @media only screen and (max-width: 730px) {
 
@@ -410,7 +425,6 @@ section{
     }
 
     #path section {
-        padding: 20px;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         grid-template-areas: 
@@ -418,6 +432,9 @@ section{
             "c2"
         ;
         gap: 10px;
+    }
+    #path .container {
+        height: calc(50vh - 27.5px - 10px - 30px);
     }
 
 }
