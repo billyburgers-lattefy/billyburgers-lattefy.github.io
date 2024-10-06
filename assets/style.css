@@ -58,7 +58,7 @@ div {
     --nav-bg-color: rgba(255, 255, 255, 1);
     --container-bg-color: var(--white);
 
-    --card-page-bg-color: var(--white);
+    --card-section-bg-color: var(--white);
     --card-bg-color: var(--blue);
     --card-text-color: var(--white);
 
@@ -71,7 +71,7 @@ div {
     --btn-text-color: #fff;
     --btn-bg-color: var(--orange);
 
-    --shadow: 0 0.6px 2.3px -1.5px #00000036, 0 2.3px 9px -3px #0000002e, 0 10px 38px -4.5px
+    --shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 
 }
 
@@ -259,7 +259,7 @@ section{
     text-align: center;
 
     padding: 10vw 10vw;
-    padding-top: 80px;
+    padding-top: calc(10vw + 55px);
 
     width: 100vw;
     height: 100vh;
@@ -294,9 +294,6 @@ section{
 
 /* FORM */
 
-#form section {
-    height: 100vh;
-}
 #form .container form {
     text-align: left;
 }
@@ -307,9 +304,6 @@ section{
 
 /* LOGIN */
 
-#login section {
-    height: 100vh;
-}
 #login .container {
     width: 300px;
     height: auto;
@@ -336,8 +330,8 @@ section{
 
 /* CARD */
 
-#card {
-    background-color: var(--card-page-bg-color);
+#card section {
+    background-color: var(--card-section-bg-color);
     color: var(--card-text-color);
 }
 #card .container {
@@ -347,7 +341,7 @@ section{
     box-shadow: var(--shadow);
 }
 #card .container img {
-    width: 70%;
+    width: 60%;
     margin: 0 auto 20px auto;
 }
 #card .container .billy-display {
@@ -406,12 +400,6 @@ section{
 /* ----------------------------------------- Responsive -------------------------------------------- */
 
 @media only screen and (max-width: 730px) {
-
-    /* RESPONSIVE - Section */
-
-    section {
-        height: auto;
-    }
 
     /* RESPONSIVE - Container */
 

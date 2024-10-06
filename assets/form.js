@@ -227,10 +227,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         const currentBilliesDisplay = document.getElementById("current-billies")
 
         nameDisplay.innerHTML = client.name
-        currentBilliesDisplay.innerHTML = client.currentBillies
+        currentBilliesDisplay.innerHTML = `${client.currentBillies} / 10`
         
     } else {
-        window.location.href = './login.html'
+        window.location.href = './path.html'
         console.log('Cedula not found in the URL')
     }
 
