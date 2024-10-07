@@ -35,6 +35,7 @@ async function uploadPurchase(cedula, amountSpentNow) {
         if (currentBillies == 5) {
             alert('El cliente tiene 10% de descuento')
         } else if (currentBillies == 10) {
+            currentBillies = 0
             updates.claimedBillies = client.claimedBillies + 1
             alert('El cliente tiene una burger de regalo')
         } else {
