@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     })
     return () => userRating
   }
+  const getUserRating = getStarRating()
  }
 
   // Form 
