@@ -105,11 +105,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     })
     return () => userRating
   }
-  const getUserRating = getStarRating()
  }
 
   // Form 
   if (document.getElementById('form')) {
+
+    const getUserRating = getStarRating()
 
     // Form Submission
     document.getElementById('form-btn').addEventListener('click', async function(event) {
