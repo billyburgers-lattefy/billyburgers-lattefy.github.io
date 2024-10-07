@@ -54,7 +54,7 @@ div {
 
     --bg-color: var(--white);
     --section-bg-color: var(--blue);
-    --loader-bg-color: var(--bg-color);
+    --loader-bg-color: var(--blue);
     --nav-bg-color: rgba(255, 255, 255, 1);
     --container-bg-color: var(--white);
 

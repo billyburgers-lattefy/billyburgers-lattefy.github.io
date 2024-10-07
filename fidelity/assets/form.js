@@ -164,11 +164,13 @@ document.addEventListener('DOMContentLoaded', async function () {
           window.location.href = 'login.html'
           console.log('Client already registered')
         }
+
+        loader.style.display = "none"
+
       } catch (error) {
         console.error('Error creating or updating client:', error)
-      } finally {
-        loader.style.display = "none"
-      }
+      } 
+
     })
   }
 
@@ -187,6 +189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       try {
         const existingClient = await getClientByCedula(cedula)
+
         if (existingClient) {
           const averageRating = ((existingClient.averageRating + lastRating) / 2).toFixed(2)
 
@@ -206,6 +209,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         loader.style.display = "none"
+
       } catch (error) {
         console.error('Error fetching client:', error)
       }
@@ -215,6 +219,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Card 
   if (document.getElementById('card')) {
+
+    loader.style.display = "block"
 
     // Get the current URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -236,6 +242,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         window.location.href = './path.html'
         console.log('Cedula not found in the URL')
     }
+
+    loader.style.display = "none"
 
   }
 
