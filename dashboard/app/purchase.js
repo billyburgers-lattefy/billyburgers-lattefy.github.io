@@ -19,7 +19,7 @@ async function uploadPurchase(cedula, amountSpentNow) {
         const totalExpenditure = client.totalSpent + amountSpentNowNum
         // const discountsClaimed = client.discountsClaimed + 1
 
-        const currentBillies = client.currentBillies + 1
+        let currentBillies = client.currentBillies + 1
         const totalBillies = client.totalBillies + 1
 
         let averageExpenditure
@@ -33,11 +33,11 @@ async function uploadPurchase(cedula, amountSpentNow) {
         const updates = {}
 
         if (currentBillies == 5) {
-            alert('El cliente tiene 10% de descuento')
+            alert(`${currentBillies}/10: El cliente tiene 10% de descuento`)
         } else if (currentBillies == 10) {
             currentBillies = 0
             updates.claimedBillies = client.claimedBillies + 1
-            alert('El cliente tiene una burger de regalo')
+            alert(`${currentBillies}/10: El cliente tiene una burger de regalo`)
         } else {
             alert(`Se ha agregado una billie: ${currentBillies}/10`)
         }
