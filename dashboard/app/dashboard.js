@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Purchase Upload
     const purchaseBtn = document.getElementById('purchase-btn')
     purchaseBtn.addEventListener('click', function () {
-      const email = document.getElementById('email').value
+      const cedula = document.getElementById('cedula').value
       const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
-      uploadPurchase(email, amountSpentNow)
-      email.value = ''
+      uploadPurchase(cedula, amountSpentNow)
+      cedula.value = ''
       document.getElementById('amount-spent').value = ''
     })
 
