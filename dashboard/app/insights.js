@@ -58,25 +58,28 @@ function sentimentAnalysis(clients) {
 
 // Calculate Overall Average Expenditure
 function displayAverageExpenditure(clients) {
-    const allExpenditures = clients.map(client => client.averageExpenditure)
-    const allTotalBillies = clients.map(client => client.totalBillies)
 
-    let expenditureSum = 0
-    for (let i = 0; i < allExpenditures.length; i++) {
-        expenditureSum += allExpenditures[i]
+    const allTotalsSpent = clients.map(client => client.totalSpent)
+
+    let totalSum = 0
+    for (let i = 0; i < allTotalsSpent.length; i++) {
+        totalSum += allTotalsSpent[i]
     }
+
+    const allTotalBillies = clients.map(client => client.totalBillies)
 
     let totalBilliesSum = 0
     for (let i = 0; i < allTotalBillies.length; i++) {
         totalBilliesSum += allTotalBillies[i]
     }
 
-    const expenditureOutput = document.getElementById('average-expenditure')
+    const averageSpentOutput = document.getElementById('average-expenditure')
+
     if (totalBilliesSum > 0) {
-        const overallExpenditure = expenditureSum / totalBilliesSum
-        expenditureOutput.textContent = "$" + overallExpenditure.toFixed(2)
+        const overallExpenditure = totalSum / totalBilliesSum
+        averageSpentOutput.textContent = "$ " + overallExpenditure.toFixed(2)
     } else {
-        expenditureOutput.textContent = "$ 0"
+        averageSpentOutput.textContent = "$ 0"
     }
     
 }

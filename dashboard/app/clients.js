@@ -62,7 +62,7 @@ function initializeSortAndFilter(clients) {
         const clientOutput = document.getElementById('allClients')
         clientOutput.innerHTML = ''
         const fieldsToAvoid = [
-            '_id', 'lastrating', 'startdate', 'discountavailable', 'giftavailable', 'totalspent', '__v'
+            '_id', 'lastrating', 'startdate', 'discountavailable', 'giftavailable', '__v'
         ]
 
         clients.forEach(client => {
