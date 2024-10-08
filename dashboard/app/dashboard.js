@@ -90,20 +90,82 @@ document.addEventListener('DOMContentLoaded', async function () {
     initializeSortAndFilter(clients)
   }
 
-  // Purchase 
+  // // Purchase 
+  // if (document.getElementById('purchase')) {
+
+  //   const selectedFunction = checkSelector()
+
+  //   if (selectedFunction === 'add-billy') {
+
+  //     // Purchase Upload
+  //     const purchaseBtn = document.getElementById('purchase-btn')
+  //     purchaseBtn.addEventListener('click', function () {
+  //       const cedula = document.getElementById('cedula').value
+  //       const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
+  //       uploadPurchase(cedula, amountSpentNow)
+  //       cedula.value = ''
+  //       document.getElementById('amount-spent').value = ''
+  //     })
+
+  //   } else if (selectedFunction === 'claim-gift') {
+
+  //     // Gift Claim
+  //     const giftBtn = document.getElementById('gift-btn')
+  //     giftBtn.addEventListener('click', function () {
+  //       const cedula = document.getElementById('cedula').value
+  //       claimGift(cedula)
+  //       cedula.value = ''
+  //     })
+
+  //   } else {
+  //     console.log('No function selected')
+  //   }
+
+    
+
+  // }
+
+  // Purchase
   if (document.getElementById('purchase')) {
 
-    // Purchase Upload
-    const purchaseBtn = document.getElementById('purchase-btn')
-    purchaseBtn.addEventListener('click', function () {
-      const cedula = document.getElementById('cedula').value
-      const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
-      uploadPurchase(cedula, amountSpentNow)
-      cedula.value = ''
-      document.getElementById('amount-spent').value = ''
-    })
+    function setEventListeners() {
+      const selectedFunction = checkSelector()
 
+        // Add Billy
+        if (selectedFunction === 'add-billy') {
+            const purchaseBtn = document.getElementById('purchase-btn')
+            const newPurchaseBtn = purchaseBtn.cloneNode(true)
+            purchaseBtn.parentNode.replaceChild(newPurchaseBtn, purchaseBtn)
+
+            newPurchaseBtn.addEventListener('click', function () {
+                const cedula = document.getElementById('cedula-add').value
+                const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
+                uploadPurchase(cedula, amountSpentNow)
+                document.getElementById('cedula-add').value = ''
+                document.getElementById('amount-spent').value = ''
+            })
+
+        // Claim Gift
+        } else if (selectedFunction === 'claim-gift') {
+            const giftBtn = document.getElementById('gift-btn')
+            const newGiftBtn = giftBtn.cloneNode(true)
+            giftBtn.parentNode.replaceChild(newGiftBtn, giftBtn)
+
+            newGiftBtn.addEventListener('click', function () {
+                const cedula = document.getElementById('cedula-gift').value
+                claimGift(cedula)
+                document.getElementById('cedula-gift').value = ''
+            })
+
+        } else {
+            console.log('No function selected')
+        }
+
+      }
+      setEventListeners()
+      document.getElementById('function-selector').addEventListener('change', setEventListeners)
   }
+
 
   // Stats
   if (document.getElementById('stats')) {

@@ -720,11 +720,20 @@ body#clients .sidebar .menu li:nth-child(2) a {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 }
 #purchase .main .container {
     padding: 20px;
     border-radius: 12px;
 }
+#purchase .main .container #add-billy-inputs,
+#purchase .main .container #claim-gift-inputs {
+    width: 100%;
+}
+#purchase select {
+    border-radius: 8px;
+}
+
 
 
 /* Purchase Link */
