@@ -34,7 +34,6 @@ function displayClaimedCards(clients) {
     claimedCardsOutput.textContent = claimedCardsSum
 }
 
-
 // Calculate Overall Average Rating
 function sentimentAnalysis(clients) {
     const allRatings = clients.map(client => client.averageRating)
@@ -44,7 +43,14 @@ function sentimentAnalysis(clients) {
         ratingSum += allRatings[i]
     }
 
-    const overallRating = ratingSum / clients.length
+    let ratingsNotZero = 0
+    for (let i = 0; i < allRatings.length; i++) {
+        if (allRatings[i] != 0) {
+            ratingsNotZero += 1
+        }
+    }
+
+    const overallRating = ratingSum / ratingsNotZero
     
     const sentimentOutput = document.getElementById('sentiment-analysis')
     sentimentOutput.textContent = overallRating.toFixed(2)

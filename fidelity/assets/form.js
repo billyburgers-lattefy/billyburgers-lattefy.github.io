@@ -134,11 +134,19 @@ document.addEventListener('DOMContentLoaded', async function () {
       const claimedBillies = 0
 
       // Rating
-      const lastRating = getUserRating()
-      const averageRating = lastRating
+      let lastRating
+      let averageRating
+      const rating = getUserRating()
+      if (rating != null) {
+        lastRating = rating
+        averageRating = lastRating
+      } else {
+        lastRating = 0
+        averageRating = 0 
+      }
 
       try {
-        if (await AuthenticateCedula(cedula) && lastRating !== null) {
+        if (await AuthenticateCedula(cedula)) {
           const clientData = {
             name,
             cedula,
@@ -191,8 +199,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         const existingClient = await getClientByCedula(cedula)
 
         if (existingClient) {
-          const averageRating = ((existingClient.averageRating + lastRating) / 2).toFixed(2)
 
+          let averageRating
+          if (averageRating === 0) {
+            averageRating = ((existingClient.averageRating + lastRating) / 2).toFixed(2)
+          } else {
+            averageRating = lastRating
+          }
+          
           if (lastRating !== null) {
             const updates = {
               lastRating,
