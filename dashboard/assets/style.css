@@ -872,7 +872,7 @@ body#campaigns .sidebar .menu li:nth-child(5) a {
 /* Campaigns - file upload */
 
 .btn-file {
-    height: 7vh;
+    height: 42px;
     width: 100%;
     position: relative;
 
