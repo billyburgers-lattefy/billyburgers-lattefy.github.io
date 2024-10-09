@@ -19,8 +19,11 @@ async function sendCampaignEmail(clients, title, content, imageUrl) {
                 content: content,
                 image_url: imageUrl || ''
             }
+
+            const serviceID = 'service_u4c98ke';
+            const templateID = 'template_mpgivn4';
     
-            await emailjs.send("service_w0y5b66", "template_d029ld1", templateParams)
+            await emailjs.send(serviceID, templateID, templateParams)
     
         }
         alert('Campaña enviada con exito!')
@@ -39,7 +42,7 @@ async function uploadImageToCloudinary(imageFile) {
     formData.append('upload_preset', 'my_unsigned_preset')
 
     try {
-        const response = await fetch('https://api.cloudinary.com/v1_1/djassgqhi/image/upload', {
+        const response = await fetch('https://api.cloudinary.com/v1_1/dif3u3ft1/image/upload', {
             method: 'POST',
             body: formData
         })
