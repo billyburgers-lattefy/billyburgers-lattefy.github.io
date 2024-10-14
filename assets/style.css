@@ -1,0 +1,673 @@
+/* Lattefy | Uy Software Company - landing page */
+
+/*  */
+
+@font-face {
+    font-family: 'Veselina Script';
+    src: url('fonts/veselina-script.ttf') format('truetype');
+    src: url('fonts/veselina-script.woff2') format('.woff2');
+}
+@font-face {
+    font-family: 'HurmeGeometricSansBlack';
+    src: url('fonts/HurmeGeometricSans3-Black.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'HurmeGeometricSansBold';
+    src: url('fonts/HurmeGeometricSans2-Bold.ttf') format('truetype');
+}
+  
+
+:root {
+    /* Font Family */
+    --heading-font: 'Veselina Script', serif;
+    --subheading-font: 'HurmeGeometricSansBlack', serif;
+    --text-font: 'HurmeGeometricSansBold';
+
+    /* Color Pallette */
+    --blue: #0075fa;
+    --orange: #ed6335;
+    --white: #fffefa;
+    --dark: #181c1f;
+
+    /* Text Color */
+    --a-text-color: var(--blue);
+    --heading-color: var(--blue);
+    --subheading-color: var(--orange);
+    --text-color: var(--dark);
+
+    /* Body */
+    --bg-color-light: var(--white);
+    --bg-color-blue: var(--blue);
+    --loader-bg-color: var(--bg-color);
+    
+    /* Divs */
+    --card-bg-color: var(--white);
+    --container-bg-color: var(--white);
+
+    /* Nav */
+    --nav-bg-color: var(--white);
+    --nav-menu-text-color: var(--dark);
+
+    /* Inputs */
+    --input-bg-color: #eee;
+    --border-color: #ddd;
+    --border-color-active: var(--orange);
+    --burger-color: #aaa;
+
+    /* Btns */
+    --link-color: var(--dark);
+    --btn-text-color: var(--white);
+    --btn-bg-color-orange: var(--orange);
+    --btn-bg-color-blue: var(--blue);
+
+    /* Shadow */
+    --shadow: 0 0.6px 2.3px -1.5px #00000036, 0 2.3px 9px -3px #0000002e, 0 10px 38px -4.5px;
+
+    /* Settings */
+    --padding-x: 4vw;
+
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------- GENERAL STYLING ---------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+*, 
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+    overflow-x: hidden;
+    font-family: var(--text-font), serif;
+    color: var(--text-color);
+    background-color: var(--bg-color-white);
+}
+html {
+    scroll-behavior: smooth;
+}
+img {
+    width: 100%;
+}
+a {
+    text-decoration: none;
+}
+main {
+    width: 100vw;
+}
+div {
+    padding: 0;
+}
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding: 0 10vw;
+    padding-top: 100px;
+    width: 100vw;
+    position: relative;
+}
+h1 {
+    font-size: 72px;
+    font-family: 'Veselina Script', sans-serif;
+    color: var(--heading-color);
+    text-transform: capitalize;
+}
+h2 {
+    font-size: 40px;
+    font-family: 'Veselina Script', sans-serif;
+    color: var(--heading-color);
+    text-transform: capitalize;
+    margin-bottom: 5vh;
+}
+h3 {
+    font-size: 32px;
+    color: var(--subheading-color);
+    font-family: var(--subheading-font);
+}
+h5 {
+    font-size: 26px;
+    color: var(--subheading-color);
+    font-family: var(--subheading-font);
+}
+h6 {
+    font-size: 20px;
+    color: var(--subheading-color);
+    font-family: var(--subheading-font);
+}
+p {
+    font-size: 18px;
+    font-family: var(--text-font);
+    color: var(--text-color);
+}
+
+/* On Scroll effect */
+
+.reveal{
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.reveal.active{
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+
+/* ------------------------------------------- BUTTON ---------------------------------------------- */
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    padding: 10px 14px;
+    border-radius: 30px;
+
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Button */
+
+.btn{
+    color: var(--btn-text-color);
+    background-color: var(--btn-bg-color-orange);
+}
+.btn:hover{
+    opacity: 0.8;
+}
+
+/* Text Anchor */
+
+.link {
+    color: var(--dark);
+}
+.link i {
+    font-size: 20px;
+    transform: translateY(5px);
+    font-style: bold;
+    color: var(--dark);
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------- Navigation Bar ----------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+
+    height: 80px;
+    width: 100vw;
+    padding: 4vh 4vw;
+    z-index: 2;
+
+    background-color: var(--nav-bg-color);
+}
+
+nav .logo img {
+    height: 80px;
+}
+
+nav .menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+nav .menu a {
+    margin: 0 1vw;
+    text-decoration: none;
+    position: relative;
+    color: var(--nav-menu-text-color);
+}
+nav .menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--nav-menu-text-color);
+    left: 0;
+    bottom: -2px;
+    transition: width 0.3s ease;
+}
+nav .menu a:hover::after {
+    width: 100%;
+}
+
+nav .menu .btn {
+    display: none;
+}
+
+nav .burger {
+    display: none;
+}
+
+nav .nav-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+nav .nav-btns .location a {
+    color: var(--a-text-color);
+}
+nav .nav-btns .location i {
+    color: var(--a-text-color);
+    font-size: 20px;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ----------------------------------------- HERO SECTION ------------------------------------------ */
+/* --------------------------------------------------------------------------------------------------*/
+
+#hero {
+    height: 100vh;
+    padding: calc(80px + 16%) 20%;
+}
+
+/* Hero Section - text */
+
+#hero h3 {
+    margin-bottom: 2.5vh;
+}
+#hero h1{
+    margin-bottom: 5vh;
+}
+
+/* Hero Section - buttons */
+
+#hero .hero-btns{
+    display: flex;
+}
+#hero .hero-btns .btn {
+    font-size: 16.5px;
+    font-weight: 700;
+    margin-right: 10px;
+    padding: 14px 24px;
+}
+#hero .hero-btns .link {
+    margin: 8px 20px;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ----------------------------------------- MENU SECTION ------------------------------------------ */
+/* --------------------------------------------------------------------------------------------------*/
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#menu .burgers {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ----------------------------------------- ABOUT SECTION ----------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+#about-us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: space-between;
+}
+#about-us .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "text img"
+    ;
+    grid: 10px;
+}
+#about-us .columns .text {
+    grid-area: text;
+    padding: 0 20px 20px 20px;
+    text-align: left;
+    gap: 10px;
+}
+#about-us .columns .text p {
+    margin-bottom: 20px;
+}
+#about-us .columns .text .link {
+    color: var(--blue);
+}
+#about-us .columns img {
+    grid-area: img;
+    height: calc(100vh - 120px);
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* --------------------------------------------- BRAND --------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+#brand {
+    border-radius: 30px;
+    position: relative;
+    max-width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Carousel */
+
+.carousel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    animation: scroll 12s linear infinite; 
+}
+
+/* Carousel Items */
+
+.carousel .item {
+    min-width: 300px; 
+    margin: 0 10px;
+    text-align: center;
+}
+.carousel .item img {
+    width: 80%;
+    height: auto;
+    border-radius: 20px;
+}
+
+/* Carousel Animation */
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-200px * 6)); /* Scrolls through all items including duplicates */
+    }
+} 
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------- FIDELITY -------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+#fidelity {
+    display: flex;
+    flex-direction: column;
+}
+
+#fidelity .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "img text"
+    ;
+    grid: 10px;
+}
+#fidelity .columns .text {
+    grid-area: text;
+    padding: 0 20px 20px 20px;
+    text-align: left;
+    gap: 10px;
+}
+#fidelity .columns .text p {
+    margin-bottom: 20px;
+}
+#fidelity .columns .text .link {
+    color: var(--blue);
+}
+#fidelity .columns img {
+    grid-area: img;
+    height: calc(100vh - 120px);
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------- FIDELITY -------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+#location {
+    display: flex;
+    flex-direction: column;
+}
+
+#location .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "img text"
+    ;
+    grid: 10px;
+}
+#location .columns .text {
+    grid-area: text;
+    padding: 0 20px 20px 20px;
+    text-align: left;
+    gap: 50px;
+}
+#location .columns .text ul {
+    list-style: none;
+}
+#location .columns .text h6 {
+    margin-top: 2.5vh;
+}
+#location .columns .text .link {
+    color: var(--blue);
+}
+#location .columns iframe {
+    grid-area: img;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------- RESPONSIVE --------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 900px) {
+
+    /* RESPONSIVE | General Styling */
+
+    section {    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    
+        padding: 0 5vw;
+        padding-top: 100px;
+        width: 100vw;
+        position: relative;
+    }
+    h1 {
+        font-size: 32px;
+    }
+    h2 {
+        font-size: 24px;
+        margin-bottom: 5vh;
+    }
+    h3 {
+        font-size: 22px;
+        color: var(--subheading-color);
+        font-family: var(--subheading-font);
+    }
+    h5 {
+        font-size: 20px;
+        color: var(--subheading-color);
+        font-family: var(--subheading-font);
+    }
+    h6 {
+        font-size: 18px;
+        color: var(--subheading-color);
+        font-family: var(--subheading-font);
+    }
+    p {
+        font-size: 16px;
+        font-family: var(--text-font);
+        color: var(--text-color);
+    }
+
+    /* RESPONSIVE | Navigation Bar */
+
+    nav {
+        height: 68px;
+        padding: 15px 4vw;
+    }
+
+    /* RESPONSIVE | Navigation Bar - burger */
+
+    nav .burger {
+      display: block;
+      cursor: pointer;
+    }
+    nav .burger div {
+      position: relative;
+      margin: 0 20px 0 10px;
+    }
+    nav .burger span {
+      width: 30px;
+      height: 2px;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--blue);
+      transition: 0.4s;
+    }
+    nav .burger .line-1 {
+      transform: translate(-50%, -10px);
+    }
+    nav .burger .line-3 {
+      transform: translate(-50%, 7px);
+    }
+    nav .burger.active .line-1 {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    nav .burger.active .line-2 {
+      width: 0;
+    }
+    nav .burger.active .line-3 {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    /* RESPONSIVE | Navigation Bar - menu */
+
+    nav .menu {
+      height: 0;
+      width: 100vw;
+
+      left: 0;
+      right: 4.5vw;
+      top: 68px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+
+      overflow: hidden;
+      opacity: 0;
+      transition: 0.4s;
+      background-color: var(--light);
+    }
+    nav .menu.active {
+      height: 95vh;
+      background-color: rgba(255, 255, 255, 0.90);
+      opacity: 1;
+      backdrop-filter: blur(10px);
+    }
+    nav .menu a {
+      margin-bottom: 10px;
+      text-align: center;
+      padding: 10px 0;
+      width: 100%;
+      box-sizing: border-box;
+      color: var(--dark);
+    }
+    nav .menu a:hover::after {
+        width: 0%; 
+    }
+
+    /* RESPONSIVE | Navigation Bar - buttons */ 
+    
+    nav .btn{
+        display: none;
+    }
+
+    nav .menu .btn {
+        display: block;
+        width: 150px;
+        color: var(--btn-text-color);
+    }
+
+    /* RESPONSIVE | Hero Section */
+
+    #hero {
+        height: 60vh;
+        margin-bottom: 0;
+    }
+    #hero .hero-btns {
+        flex-direction: column;
+    }
+
+    /* RESPONSIVE | Menu Section */
+
+    #menu .burgers {
+        flex-direction: column;
+    }
+
+
+    /* RESPONSIVE | Columns */
+
+    #about-us .columns,
+    #fidelity .columns,
+    #location .columns {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1/4fr;
+        grid-template-areas: 
+            "text"
+            "img"
+        ;
+        gap: 10px;
+    }
+    #about-us .columns img,
+    #fidelity .columns img,
+    #location .columns img {
+        height: calc(50vh - 120px);
+    }
+}
