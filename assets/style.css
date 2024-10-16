@@ -446,7 +446,7 @@ nav .nav-btns .location i {
 }
 #fidelity .columns img {
     grid-area: img;
-    height: calc(100vh - 120px);
+    height: 400px;
 }
 
 
