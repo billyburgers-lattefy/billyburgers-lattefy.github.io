@@ -1,16 +1,31 @@
 /* Lattefy | Uy Software Company - landing page */
 
-/*  */
+/* Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Maname&display=swap');
 
 @font-face {
     font-family: 'Veselina Script';
     src: url('fonts/veselina-script.ttf') format('truetype');
     src: url('fonts/veselina-script.woff2') format('.woff2');
+    src: url('fonts/veselina-script.woff') format('.woff');
+}
+@font-face {
+    font-family: 'Bugaki';
+    src: url('fonts/Bugaki.ttf') format('truetype');
 }
 @font-face {
     font-family: 'HurmeGeometricSansBlack';
     src: url('fonts/HurmeGeometricSans3-Black.ttf') format('truetype');
     font-weight: bold;
+}
+@font-face {
+    font-family: 'HurmeBlack1';
+    src: url('fonts/HurmeGeometricSans1-Black.otf') format('.otf');
+}
+@font-face {
+    font-family: 'HurmeBold1';
+    src: url('fonts/HurmeGeometricSans1-Bold.otf') format('.otf');
 }
 @font-face {
     font-family: 'HurmeGeometricSansBold';
@@ -20,9 +35,9 @@
 
 :root {
     /* Font Family */
-    --heading-font: 'Veselina Script', serif;
-    --subheading-font: 'HurmeGeometricSansBlack', serif;
-    --text-font: 'HurmeGeometricSansBold';
+    --heading-font: 'Veselina Script', 'Bugaki', serif;
+    --subheading-font: 'HurmeGeometricSansBlack', 'HurmeBlack1', sans-serif;
+    --text-font: 'HurmeGeometricSansBold', 'HurmeBold1', sans-serif;
 
     /* Color Pallette */
     --blue: #0075fa;
@@ -116,13 +131,13 @@ section{
 }
 h1 {
     font-size: 72px;
-    font-family: 'Veselina Script', sans-serif;
+    font-family: var(--heading-font), sans-serif;
     color: var(--heading-color);
     text-transform: capitalize;
 }
 h2 {
     font-size: 40px;
-    font-family: 'Veselina Script', sans-serif;
+    font-family: var(--heading-font), sans-serif;
     color: var(--heading-color);
     text-transform: capitalize;
     margin-bottom: 5vh;
@@ -222,7 +237,7 @@ nav {
 }
 
 nav .logo img {
-    height: 80px;
+    height: 70px;
 }
 
 nav .menu{
@@ -325,16 +340,30 @@ nav .nav-btns .location i {
     align-items: center;
     justify-content: space-evenly;
 }
+#menu .burgers img {
+    width: 90%;
+    margin-bottom: 5vh;
+}
 
 /* --------------------------------------------------------------------------------------------------*/
 /* ----------------------------------------- ABOUT SECTION ----------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
 
 #about-us {
+    margin-top: 100px;
+    padding: 100px 10vw 100px 10vw;
+    background-color: var(--bg-color-blue);
+    color: var(--white);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-self: space-between;
+}
+#about-us h2 {
+    color: var(--white);
+}
+#about-us h5 {
+    display: none;
 }
 #about-us .columns {
     display: grid;
@@ -343,7 +372,7 @@ nav .nav-btns .location i {
     grid-template-areas:
         "text img"
     ;
-    grid: 10px;
+    grid: 30px;
 }
 #about-us .columns .text {
     grid-area: text;
@@ -353,13 +382,15 @@ nav .nav-btns .location i {
 }
 #about-us .columns .text p {
     margin-bottom: 20px;
+    padding: 0 10px 0 0;
+    color: var(--white);
 }
 #about-us .columns .text .link {
-    color: var(--blue);
+    color: var(--white);
 }
 #about-us .columns img {
     grid-area: img;
-    height: calc(100vh - 120px);
+    height: 400px;
 }
 
 
@@ -446,7 +477,7 @@ nav .nav-btns .location i {
 }
 #fidelity .columns img {
     grid-area: img;
-    height: 400px;
+    height: 300px;
 }
 
 
@@ -584,6 +615,12 @@ nav .nav-btns .location i {
       transform: translate(-50%, -50%) rotate(45deg);
     }
 
+    /* RESPONSIVE | Navigation Bar - logo */
+
+    nav .logo img {
+        height: 50px;
+    }
+
     /* RESPONSIVE | Navigation Bar - menu */
 
     nav .menu {
@@ -666,8 +703,12 @@ nav .nav-btns .location i {
         gap: 10px;
     }
     #about-us .columns img,
-    #fidelity .columns img,
     #location .columns img {
         height: calc(50vh - 120px);
+    }
+    #fidelity .columns img {
+        width: 80%;
+        height: auto;
+        margin: 0 auto;
     }
 }
