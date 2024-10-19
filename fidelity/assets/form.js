@@ -15,19 +15,20 @@ async function getAll(database) {
   }
 }
 
-// Authenticate cedula
-async function AuthenticateCedula(cedula) {
-  const clients = await getAll('clients')
-  return !clients.some(client => client.cedula === cedula)
+// Authenticate phoneNumber
+async function AuthenticatePhoneNumber(phoneNumber) {
+  const clients = await getAll('clients');
+  console.log('Existing clients:', clients);
+  return !clients.some(client => client.phoneNumber === phoneNumber);
 }
 
-// Get client by cedula
-async function getClientByCedula(cedula) {
+// Get client by phone
+async function getClientByPhoneNumber(phoneNumber) {
   try {
     const response = await fetch(`${apiUrl}/clients`)
     if (!response.ok) throw new Error('Network response was not ok')
     const clients = await response.json()
-    return clients.find(client => client.cedula === cedula)
+    return clients.find(client => client.phoneNumber === phoneNumber)
   } catch (error) {
     console.error('Error fetching clients:', error)
     return null
@@ -50,9 +51,9 @@ async function createClient(clientData) {
 }
 
 // Update client
-async function updateClient(cedula, updates) {
+async function updateClient(phoneNumber, updates) {
   try {
-    const response = await fetch(`${apiUrl}/clients/${cedula}`, {
+    const response = await fetch(`${apiUrl}/clients/${phoneNumber}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updates)
@@ -64,17 +65,17 @@ async function updateClient(cedula, updates) {
   }
 }
 
-// Get cedula from URL
-function getCedulaFromURL() {
+// Get phoneNumber from URL
+function getPhoneNumberFromURL() {
   const urlParams = new URLSearchParams(window.location.search)
-  console.log(urlParams.get('cedula'))
-  return urlParams.get('cedula')
+  console.log(urlParams.get('phoneNumber'))
+  return urlParams.get('phoneNumber')
 }
 
-// Delete cedula from URL
+// Delete phoneNumber from URL
 function clearURL() {
   const urlParams = new URLSearchParams(window.location.search)
-  urlParams.delete('cedula')
+  urlParams.delete('phoneNumber')
   const newUrl = window.location.pathname + (urlParams.toString() ? `?${urlParams.toString()}` : '')
   window.history.replaceState({}, '', newUrl)
 }
@@ -88,29 +89,28 @@ document.addEventListener('DOMContentLoaded', async function () {
   window.addEventListener("load", function() {
     loader.style.display = "none"
   })
-  
 
- if (
-  document.getElementById('form') ||
-  document.getElementById('login') 
- ) {
-   // Get 5-Star Rating
-   function getStarRating() {
-    let userRating = null
-    document.querySelectorAll('.star').forEach((star, index) => {
-      star.addEventListener('click', () => {
-        userRating = 5 - index
-        console.log('User rating updated:', userRating)
-      })
-    })
-    return () => userRating
-  }
- }
+//  if (
+//   document.getElementById('form') ||
+//   document.getElementById('login') 
+//  ) {
+//    // Get 5-Star Rating
+//    function getStarRating() {
+//     let userRating = null
+//     document.querySelectorAll('.star').forEach((star, index) => {
+//       star.addEventListener('click', () => {
+//         userRating = 5 - index
+//         console.log('User rating updated:', userRating)
+//       })
+//     })
+//     return () => userRating
+//   }
+//  }
 
   // Form 
   if (document.getElementById('form')) {
 
-    const getUserRating = getStarRating()
+    // const getUserRating = getStarRating()
 
     // Form Submission
     document.getElementById('form-btn').addEventListener('click', async function(event) {
@@ -120,13 +120,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       // Fixed Data
       const name = document.getElementById("name").value
-      const cedula = document.getElementById("cedula").value
       const email = document.getElementById("email").value
       const phoneNumber = document.getElementById("phoneNumber").value
-      const birthDate = document.getElementById("birthdate").value
+
+      // Log data
+      const startDate = new Date()
 
       // Discount Data
-      const startDate = new Date()
       const discountAvailable = false
       const giftAvailable = false
       const currentBillies = 0
@@ -134,25 +134,24 @@ document.addEventListener('DOMContentLoaded', async function () {
       const claimedBillies = 0
 
       // Rating
-      let lastRating
-      let averageRating
-      const rating = getUserRating()
-      if (rating != null) {
-        lastRating = rating
-        averageRating = lastRating
-      } else {
-        lastRating = 0
-        averageRating = 0 
-      }
+      let lastRating = 0
+      let averageRating = 0
+      // const rating = getUserRating()
+      // if (rating != null) {
+      //   lastRating = rating
+      //   averageRating = lastRating
+      // } else {
+      //   lastRating = 0
+      //   averageRating = 0 
+      // }
 
       try {
-        if (await AuthenticateCedula(cedula)) {
+        if (await AuthenticatePhoneNumber(phoneNumber)) {
           const clientData = {
             name,
-            cedula,
             email,
             phoneNumber,
-            birthDate,
+            logCount: 0,
             startDate,
             lastRating,
             averageRating,
@@ -179,44 +178,53 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.error('Error creating or updating client:', error)
       } 
 
-    })
+    }) 
   }
 
   // Login 
   if (document.getElementById('login')) {
 
-    const getUserRating = getStarRating()
+    // const getUserRating = getStarRating()
 
     document.getElementById('login-btn').addEventListener('click', async function(event) {
       event.preventDefault()
 
       loader.style.display = "block"
 
-      const cedula = document.getElementById("cedula").value
-      const lastRating = getUserRating()
+      const phoneNumber = document.getElementById("phoneNumber").value
+      // const lastRating = getUserRating()
 
       try {
-        const existingClient = await getClientByCedula(cedula)
+        const existingClient = await getClientByPhoneNumber(phoneNumber)
 
         if (existingClient) {
 
-          let averageRating
-          if (averageRating === 0) {
-            averageRating = ((existingClient.averageRating + lastRating) / 2).toFixed(2)
-          } else {
-            averageRating = lastRating
+          const logCount = existingClient.logCount + 1
+          const updates = {
+            logCount
           }
+        
+          await updateClient(phoneNumber, updates)
+          console.log('Client updated successfully')
+          window.location.href = `./index.html?phoneNumber=${existingClient.phoneNumber}`
+
+          // let averageRating
+          // if (averageRating === 0) {
+          //   averageRating = ((existingClient.averageRating + lastRating) / 2).toFixed(2)
+          // } else {
+          //   averageRating = lastRating
+          // }
           
-          if (lastRating !== null) {
-            const updates = {
-              lastRating,
-              averageRating,
-            }
-            await updateClient(cedula, updates)
-            console.log('Client updated successfully')
-          }
+          // if (lastRating !== null) {
+          //   const updates = {
+          //     lastRating,
+          //     averageRating,
+          //   }
+          //   await updateClient(cedula, updates)
+          //   console.log('Client updated successfully')
+          // }
           
-          window.location.href = `./index.html?cedula=${existingClient.cedula}`
+          
         } else {
           alert('Usuario no encontrado.')
           window.location.href = 'form.html'
@@ -239,22 +247,22 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Get the current URL
     const urlParams = new URLSearchParams(window.location.search);
 
-    if (urlParams.has('cedula')) {
+    if (urlParams.has('phoneNumber')) {
 
-        const cedula = getCedulaFromURL()
+        const phoneNumber = getPhoneNumberFromURL()
         clearURL()
-        const client = await getClientByCedula(cedula)
+        const client = await getClientByPhoneNumber(phoneNumber)
         console.log(client)
 
         const nameDisplay = document.getElementById("client-name")
         const currentBilliesDisplay = document.getElementById("current-billies")
 
         nameDisplay.innerHTML = client.name
-        currentBilliesDisplay.innerHTML = `${client.currentBillies} / 10`
+        currentBilliesDisplay.innerHTML = `${client.currentBillies} / 9`
         
     } else {
         window.location.href = './path.html'
-        console.log('Cedula not found in the URL')
+        console.log('phoneNumber not found in the URL')
     }
 
     loader.style.display = "none"
