@@ -48,7 +48,7 @@
     /* Text Color */
     --a-text-color: var(--blue);
     --heading-color: var(--blue);
-    --subheading-color: var(--orange);
+    --subheading-color: var(--dark);
     --text-color: var(--dark);
 
     /* Body */
@@ -67,13 +67,13 @@
     /* Inputs */
     --input-bg-color: #eee;
     --border-color: #ddd;
-    --border-color-active: var(--orange);
+    --border-color-active: var(--blue);
     --burger-color: #aaa;
 
     /* Btns */
     --link-color: var(--dark);
     --btn-text-color: var(--white);
-    --btn-bg-color-orange: var(--orange);
+    --btn-bg-color-orange: var(--blue);
     --btn-bg-color-blue: var(--blue);
 
     /* Shadow */
@@ -176,6 +176,70 @@ p {
     opacity: 1;
 }
 
+/* ---------------------------------- Raceline Divider --------------------------------------------- */
+
+.horizontal-raceline-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.horizontal-raceline-divider .top,
+.horizontal-raceline-divider .bottom {
+    width: 100vw;
+    height: 20px;
+    background: repeating-linear-gradient(
+        to right,
+        var(--blue),
+        var(--blue) 20px, 
+        transparent 20px, 
+        transparent 40px 
+      );
+    border-bottom: 0px solid; 
+    margin: 0;
+    position: relative;
+}
+.horizontal-raceline-divider .bottom {
+    transform: translateX(20px);
+}
+
+/* Vertical Raceline Divider */
+.raceline-divider-vertical .one,
+.raceline-divider-vertical .two {
+    position: absolute;
+    height: calc(55vh + 100vh * 6);
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--blue),
+        var(--blue) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+    border-right: 0px solid;
+}
+
+/* Left vertical raceline */
+.raceline-divider-vertical.left .one {
+    left: 0;
+}
+.raceline-divider-vertical.left .two {
+    left: 20px;
+    transform: translateY(20px);
+}
+
+/* Right vertical raceline */
+.raceline-divider-vertical.right .one {
+    right: 0px;
+    transform: translateY(20px);
+}
+.raceline-divider-vertical.right .two {
+    right: 20px;
+}
+
+  
+
 
 /* ------------------------------------------- BUTTON ---------------------------------------------- */
 
@@ -236,8 +300,16 @@ nav {
     background-color: var(--nav-bg-color);
 }
 
+nav .logo {
+    display: flex;
+}
 nav .logo img {
-    height: 70px;
+    height: 78px;
+}
+nav .logo h2 {
+    font-family: var(--heading-font);
+    font-size: 30px;
+    transform: translateY(20px);
 }
 
 nav .menu{
@@ -538,13 +610,13 @@ nav .nav-btns .location i {
         justify-content: center;
         text-align: center;
     
-        padding: 0 5vw;
+        padding: 0 6vw;
         padding-top: 100px;
         width: 100vw;
         position: relative;
     }
     h1 {
-        font-size: 32px;
+        font-size: 28px;
     }
     h2 {
         font-size: 24px;
@@ -569,6 +641,63 @@ nav .nav-btns .location i {
         font-size: 16px;
         font-family: var(--text-font);
         color: var(--text-color);
+    }
+
+    /* RESPONSIVE | Divider */
+
+    .horizontal-raceline-divider {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .horizontal-raceline-divider .top,
+    .horizontal-raceline-divider .bottom {
+        width: 100vw;
+        height: 20px;
+        background: repeating-linear-gradient(
+            to right,
+            var(--blue),
+            var(--blue) 20px, 
+            transparent 20px, 
+            transparent 40px 
+          );
+        border-bottom: 0px solid; 
+        margin: 0;
+        position: relative;
+    }
+    .horizontal-raceline-divider .bottom {
+        transform: translateX(20px);
+    }
+    
+    /* Vertical Raceline Divider */
+    .raceline-divider-vertical .one,
+    .raceline-divider-vertical .two {
+        width: 10px;
+        background: repeating-linear-gradient(
+            to bottom,
+            var(--blue),
+            var(--blue) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+    }
+    
+    /* Left vertical raceline */
+    .raceline-divider-vertical.left .one {
+        left: 0;
+    }
+    .raceline-divider-vertical.left .two {
+        left: 10px;
+        transform: translateY(10px);
+    }
+    
+    /* Right vertical raceline */
+    .raceline-divider-vertical.right .one {
+        right: 0px;
+        transform: translateY(10px);
+    }
+    .raceline-divider-vertical.right .two {
+        right: 10px;
     }
 
     /* RESPONSIVE | Navigation Bar */
@@ -617,8 +746,14 @@ nav .nav-btns .location i {
 
     /* RESPONSIVE | Navigation Bar - logo */
 
+    nav .logo {
+        margin: auto 0;
+    }
+    nav .logo h2 {
+        transform: translateY(15px);
+    }
     nav .logo img {
-        height: 50px;
+        height: 65px;
     }
 
     /* RESPONSIVE | Navigation Bar - menu */
