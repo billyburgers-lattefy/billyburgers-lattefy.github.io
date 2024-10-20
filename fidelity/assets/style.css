@@ -63,13 +63,13 @@ div {
     --card-text-color: var(--white);
 
     --border-color: #ddd;
-    --border-color-active: var(--orange);
+    --border-color-active: var(--blue);
     --input-bg-color: #eee;
     --burger-color: #aaa;
 
     --link-color: var(--blue);
     --btn-text-color: #fff;
-    --btn-bg-color: var(--orange);
+    --btn-bg-color: var(--blue);
 
     --shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 
@@ -310,13 +310,13 @@ section{
     align-items: center;
 }
 #login .container img {
-    width: 70px;
+    width: 100px;
 }
 #login .container *input:nth-of-type(1) {
     margin-bottom: 10px;
 }
 #login .container .label {
-    transform: translateX(calc(-100% - 50px));
+    transform: translateX(calc(-100% - 65px));
 }
 
 /* DONE */
@@ -353,13 +353,39 @@ section{
     width: calc(100% + 60px);
     padding: 40px 0;
     transform: translateX(-30px);
-    color: var(--orange);
+    color: var(--blue);
     background-color: white;
     height: 50px;
 }
 #card .container .billy-display h3 {
     font-size: 25px;
     font-weight: 300;
+}
+#card .container ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+#card .container ul .gift {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 30px;
+    height: 30px;
+    width: 200px;
+    margin: 0 auto 10px auto;
+    background-color: var(--white);
+}
+#card .container ul .gift p:nth-child(1) {
+    color: var(--blue);
+}
+#card .container ul .gift p:nth-child(2) {
+    color: var(--dark);
+}
+#card .container ul li:last-child {
+    color: var(--dark);
 }
 
 /* PATH */
@@ -375,10 +401,10 @@ section{
     gap: 10px;
 }
 #path section {
-    padding: 75px 20px 20px 20px;
+    padding: 75px 20px 180px 20px;
 }
 #path .container {
-    height: 450px;
+    height: 420px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,6 +422,41 @@ section{
     background-color: #ed6335;
     grid-area: c2;
 }
+
+
+
+/* LATTEFY */
+
+.lattefy {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 20px 0;
+    text-align: center;
+}
+.lattefy i {
+    font-size: 24px;
+    margin-right: 10px; 
+}
+.lattefy h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#login .lattefy,
+#form .lattefy,
+#done .lattefy {
+    color: var(--white);
+}
+#path .lattefy,
+#card .lattefy {
+    color: var(--dark);
+}
+
 
 /* ----------------------------------------- Responsive -------------------------------------------- */
 
@@ -422,7 +483,7 @@ section{
         gap: 10px;
     }
     #path .container {
-        height: calc(50vh - 27.5px - 10px - 30px);
+        height: calc(50vh - 27.5px - 10px - 30px - 20px);
     }
 
 }
