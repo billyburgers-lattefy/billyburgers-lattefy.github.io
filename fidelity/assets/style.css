@@ -262,7 +262,7 @@ section{
     padding-top: calc(10vw + 55px);
 
     width: 100vw;
-    height: 100vh;
+    height: 95vh;
     background-color: var(--section-bg-color);
 }
 
@@ -428,6 +428,7 @@ section{
 /* LATTEFY */
 
 .lattefy {
+    height: 5vh;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -451,6 +452,7 @@ section{
 #form .lattefy,
 #done .lattefy {
     color: var(--white);
+    background-color: var(--section-bg-color);
 }
 #path .lattefy,
 #card .lattefy {
