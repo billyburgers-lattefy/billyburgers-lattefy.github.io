@@ -454,7 +454,7 @@ section{
     padding: 75px 20px 75px 20px;
 }
 #path .container {
-    height: calc(50vh - 55px - 20px - 5px);
+    height: calc(50vh - 55px - 20px - 5px - 60px);
     display: flex;
     align-items: center;
     justify-content: center;
