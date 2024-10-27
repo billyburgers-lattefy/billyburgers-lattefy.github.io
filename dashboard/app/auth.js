@@ -1,60 +1,106 @@
-/* --------------------------------------------------------------------------------------------------*/
-/* ------------------------------------------ USER AUTH -------------------------------------------- */
-/* --------------------------------------------------------------------------------------------------*/
+// DASHBOARD AUTH
 
-// Fetch all users
-async function getAllUsers(api) {
+const authUrl = 'https://backend-v1-2-63a1.onrender.com'
+
+async function auth() {
+  const email = getEmailFromURL()
+  const password = getPasswordFromURL()
+
+  if (email && password) {
+    await authLogin(email, password) 
+  } else {
+    await validateTokens() 
+  }
+}
+
+// Token Validation
+async function validateTokens() {
+
+  const accessToken = localStorage.getItem('accessToken')
+  const refreshToken = localStorage.getItem('refreshToken')
+
+  if (!accessToken) {
+    console.log('No access token found, redirecting to login')
+    window.location.href = 'https://lattefy.com.uy/auth/login.html'
+    return
+  }
+
+  // Validate access token against the server
+  const isValid = await validateAccessToken(accessToken)
+  if (!isValid) {
+    if (!refreshToken) {
+      console.log('No refresh token available, redirecting to login')
+      window.location.href = 'https://lattefy.com.uy/auth/login.html'
+      return
+    }
+
+    console.log('Access token expired or invalid, refreshing...')
+    await refreshAccessToken(refreshToken)
+
+  } else {
+    console.log('Access token is valid')
+  }
+
+}
+
+async function validateAccessToken(accessToken) {
+
   try {
-    const response = await fetch(`https://backend-v1-2-63a1.onrender.com/users`)
-    if (!response.ok) throw new Error('Network response was not ok')
-    return await response.json()
+      const response = await fetch(`${authUrl}/users`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${accessToken}`
+          }
+      })
+
+      if (response.ok) {
+          return true
+      } else if (response.status === 403 || response.status === 401) {
+          return false
+      }
+
   } catch (error) {
-    console.error(`Error fetching users:`, error)
-    return []
+      console.log('Error checking access token validity: ' + error.message)
+      return false
   }
+
 }
 
-// Get user by email
-function getUserByEmail(users, email) {
-  return users.find(user => user.email === email)
+// Refresh the access token using the refresh token
+async function refreshAccessToken(refreshToken) {
+  try {
+    const response = await fetch(`${authUrl}/auth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token: refreshToken })
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh access token')
+    }
+
+    const data = await response.json()
+    localStorage.setItem('accessToken', data.accessToken)
+    window.location.reload()
+  
+  } catch (error) {
+    console.log('Error refreshing access token: ' + error.message)
+    throw error 
+  }
+
 }
 
-// Function to Authenticate user
-async function authenticateUser (users, email, password) {
-
-  // Authenticate email
-  function authenticateEmail(users, email) {
-    return users.some(user => user.email === email)
-  }
-
-  // Authenticate Password
-  function authenticatePassword(users, email, password) {
-    const user = users.find(user => user.email === email)
-    return user && user.password === password
-  }
-
-  if (!authenticateEmail(users, email) || !authenticatePassword(users, email, password)) {
-    console.log("Error authenticating user")
-    return false
-  }
-  return true
-}
-
-// Get email from URL
+// URL utility functions
 function getEmailFromURL() {
   const urlParams = new URLSearchParams(window.location.search)
-  console.log(urlParams.get('email'))
   return urlParams.get('email')
 }
-
-// Get password from URL
 function getPasswordFromURL() {
   const urlParams = new URLSearchParams(window.location.search)
-  console.log(urlParams.get('password'))
-  return urlParams.get('password')  
+  return urlParams.get('password')
 }
-
-// Delete email & password from URL
 function clearURL() {
   const urlParams = new URLSearchParams(window.location.search)
   urlParams.delete('email')
@@ -63,38 +109,31 @@ function clearURL() {
   window.history.replaceState({}, '', newUrl)
 }
 
-async function auth() {
-  let email, password;
+// Login process
+async function authLogin(email, password) {
+  clearURL() 
 
-  // Get the current URL
-  const urlParams = new URLSearchParams(window.location.search)
+  try {
+    const response = await fetch(`${authUrl}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
 
-  if (urlParams.has('email') && urlParams.has('password')) {
-    email = getEmailFromURL()
-    password = getPasswordFromURL()
-    console.log(`URL: email: ${email}, password: ${password}`)
-    localStorage.setItem('email', email)
-    localStorage.setItem('password', password)
-    localStorage.setItem('auth', true)
-    clearURL()
-  } else if (localStorage.getItem('auth')) {
-    email = localStorage.getItem('email')
-    password = localStorage.getItem('password')
-    console.log(`AUTH: email: ${email}, password: ${password}`)
-  } else {
-    localStorage.removeItem('auth')
-    alert('Error al iniciar sesion')
-    window.location.href = 'https://lattefy.github.io/auth/login.html'
+    if (!response.ok) {
+      const errorMsg = await response.json()
+      throw new Error(errorMsg)
+    }
+
+    const data = await response.json()
+    localStorage.setItem('accessToken', data.accessToken)
+    localStorage.setItem('refreshToken', data.refreshToken)
+  
+  } catch (error) {
+    console.log('Authorization failed: ' + error.message)
+    window.location.href = 'https://lattefy.com.uy/auth/login.html'
   }
 
-  const users = await getAllUsers()
-
-  if (await authenticateUser(users, email, password)) {
-    const user = getUserByEmail(users, email)
-    console.log(`User authenticated: ${user.name}`)
-    clearURL()
-  } else {
-    alert('Error al iniciar sesion')
-    window.location.href = `https://lattefy.github.io/auth/login.html`
-  }
 }

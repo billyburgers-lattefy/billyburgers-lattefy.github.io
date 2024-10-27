@@ -8,10 +8,25 @@
 // const apiUrl = 'http://localhost:3087'
 const apiUrl = 'https://backend-nqez.onrender.com'
 
-// Fetch all clients
+// // Fetch all clients
+// async function getAll(database) {
+//   try {
+//     const response = await fetch(`${apiUrl}/${database}`)
+//     if (!response.ok) throw new Error('Network response was not ok')
+//     return await response.json()
+//   } catch (error) {
+//     console.error(`Error fetching ${database}:`, error)
+//     return []
+//   }
+// }
+
+// Fetch all clients with auth
 async function getAll(database) {
   try {
-    const response = await fetch(`${apiUrl}/${database}`)
+    const token = sessionStorage.getItem('authToken') // Retrieve the token from session storage
+    const response = await fetch(`${apiUrl}/${database}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
     if (!response.ok) throw new Error('Network response was not ok')
     return await response.json()
   } catch (error) {
@@ -20,20 +35,31 @@ async function getAll(database) {
   }
 }
 
-// Authenticate cedula
-async function AuthenticateCedula(cedula, cedula) {
-  return !clients.some(client => client.cedula === cedula)
+
+// Authenticate phoneNumber
+async function AuthenticatePhoneNumber(phoneNumber) {
+  const clients = await getAll('clients');
+  console.log('Existing clients:', clients);
+  return !clients.some(client => client.phoneNumber === phoneNumber);
 }
 
-// Get client by cedula
-function getClientByCedula(clients, cedula) {
-  return clients.find(client => client.cedula === cedula)
+// Get client by phone
+async function getClientByPhoneNumber(phoneNumber) {
+  try {
+    const response = await fetch(`${apiUrl}/clients`)
+    if (!response.ok) throw new Error('Network response was not ok')
+    const clients = await response.json()
+    return clients.find(client => client.phoneNumber === phoneNumber)
+  } catch (error) {
+    console.error('Error fetching clients:', error)
+    return null
+  }
 }
 
 // Update client
-async function updateClient(cedula, updates) {
+async function updateClient(phoneNumber, updates) {
   try {
-    const response = await fetch(`${apiUrl}/clients/${cedula}`, {
+    const response = await fetch(`${apiUrl}/clients/${phoneNumber}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updates)
@@ -54,14 +80,12 @@ async function updateClient(cedula, updates) {
 // DOM Content Load
 document.addEventListener('DOMContentLoaded', async function () {
 
-  // if (!localStorage.getItem('auth')) {
-  //   await auth(authUrl)
-  //   localStorage.setItem('auth', 'true')
-  // } else {
-  //   clearURL()
-  // }
-
-  await auth()
+  // auth
+  if (!localStorage.getItem('accessToken')) {
+    authLogin()
+  } else {
+    auth()
+  }
 
   const clients = await getAll('clients')
 
@@ -81,7 +105,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   if (document.getElementById('dashboard')) {
     displayClientsDashboard(clients)
     displayClientCount(clients)
-    sentimentAnalysis(clients)
+    // sentimentAnalysis(clients)
+    displayLogCount(clients)
     displayTotalProfit(clients)
   }
 
@@ -89,41 +114,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   if (document.getElementById('clients')) {
     initializeSortAndFilter(clients)
   }
-
-  // // Purchase 
-  // if (document.getElementById('purchase')) {
-
-  //   const selectedFunction = checkSelector()
-
-  //   if (selectedFunction === 'add-billy') {
-
-  //     // Purchase Upload
-  //     const purchaseBtn = document.getElementById('purchase-btn')
-  //     purchaseBtn.addEventListener('click', function () {
-  //       const cedula = document.getElementById('cedula').value
-  //       const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
-  //       uploadPurchase(cedula, amountSpentNow)
-  //       cedula.value = ''
-  //       document.getElementById('amount-spent').value = ''
-  //     })
-
-  //   } else if (selectedFunction === 'claim-gift') {
-
-  //     // Gift Claim
-  //     const giftBtn = document.getElementById('gift-btn')
-  //     giftBtn.addEventListener('click', function () {
-  //       const cedula = document.getElementById('cedula').value
-  //       claimGift(cedula)
-  //       cedula.value = ''
-  //     })
-
-  //   } else {
-  //     console.log('No function selected')
-  //   }
-
-    
-
-  // }
 
   // Purchase
   if (document.getElementById('purchase')) {
@@ -138,10 +128,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             purchaseBtn.parentNode.replaceChild(newPurchaseBtn, purchaseBtn)
 
             newPurchaseBtn.addEventListener('click', function () {
-                const cedula = document.getElementById('cedula-add').value
+                const phoneNumber = document.getElementById('phone-add').value
                 const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
-                uploadPurchase(cedula, amountSpentNow)
-                document.getElementById('cedula-add').value = ''
+                uploadPurchase(phoneNumber, amountSpentNow)
+                document.getElementById('phone-add').value = ''
                 document.getElementById('amount-spent').value = ''
             })
 
@@ -152,9 +142,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             giftBtn.parentNode.replaceChild(newGiftBtn, giftBtn)
 
             newGiftBtn.addEventListener('click', function () {
-                const cedula = document.getElementById('cedula-gift').value
-                claimGift(cedula)
-                document.getElementById('cedula-gift').value = ''
+                const phoneNumber = document.getElementById('phone-gift').value
+                claimGift(phoneNumber)
+                document.getElementById('phone-gift').value = ''
             })
 
         } else {
@@ -173,7 +163,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     displayClientCount(clients)
     displayTotalBillies(clients)
     displayClaimedCards(clients)
-    sentimentAnalysis(clients)
+    // sentimentAnalysis(clients)
+    displayLogCount(clients)
     displayAverageExpenditure(clients)
     displayTotalProfit(clients)
 
