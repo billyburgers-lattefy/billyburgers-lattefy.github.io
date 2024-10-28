@@ -1,5 +1,6 @@
 // DASHBOARD AUTH
 
+// const authUrl = 'http://localhost:3089'
 const authUrl = 'https://backend-v1-2-63a1.onrender.com'
 
 async function auth() {
@@ -21,7 +22,7 @@ async function validateTokens() {
 
   if (!accessToken) {
     console.log('No access token found, redirecting to login')
-    window.location.href = 'https://lattefy.com.uy/auth/login.html'
+    window.location.href = 'https://lattefy.github.io/auth/login.html'
     return
   }
 
@@ -30,7 +31,7 @@ async function validateTokens() {
   if (!isValid) {
     if (!refreshToken) {
       console.log('No refresh token available, redirecting to login')
-      window.location.href = 'https://lattefy.com.uy/auth/login.html'
+      window.location.href = 'https://lattefy.github.io/auth/login.html'
       return
     }
 
@@ -133,7 +134,7 @@ async function authLogin(email, password) {
   
   } catch (error) {
     console.log('Authorization failed: ' + error.message)
-    window.location.href = 'https://lattefy.com.uy/auth/login.html'
+    window.location.href = 'https://lattefy.github.io/auth/login.html'
   }
 
 }
