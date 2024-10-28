@@ -8,25 +8,10 @@
 // const apiUrl = 'http://localhost:3087'
 const apiUrl = 'https://backend-nqez.onrender.com'
 
-// // Fetch all clients
-// async function getAll(database) {
-//   try {
-//     const response = await fetch(`${apiUrl}/${database}`)
-//     if (!response.ok) throw new Error('Network response was not ok')
-//     return await response.json()
-//   } catch (error) {
-//     console.error(`Error fetching ${database}:`, error)
-//     return []
-//   }
-// }
-
-// Fetch all clients with auth
+// Fetch all clients
 async function getAll(database) {
   try {
-    const token = sessionStorage.getItem('authToken') // Retrieve the token from session storage
-    const response = await fetch(`${apiUrl}/${database}`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
+    const response = await fetch(`${apiUrl}/${database}`)
     if (!response.ok) throw new Error('Network response was not ok')
     return await response.json()
   } catch (error) {
@@ -34,6 +19,21 @@ async function getAll(database) {
     return []
   }
 }
+
+// // Fetch all clients with auth
+// async function getAll(database) {
+//   try {
+//     const token = sessionStorage.getItem('authToken') // Retrieve the token from session storage
+//     const response = await fetch(`${apiUrl}/${database}`, {
+//       headers: { 'Authorization': `Bearer ${token}` }
+//     })
+//     if (!response.ok) throw new Error('Network response was not ok')
+//     return await response.json()
+//   } catch (error) {
+//     console.error(`Error fetching ${database}:`, error)
+//     return []
+//   }
+// }
 
 
 // Authenticate phoneNumber
