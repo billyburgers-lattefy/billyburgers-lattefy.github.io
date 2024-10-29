@@ -81,11 +81,7 @@ async function updateClient(phoneNumber, updates) {
 document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
-  if (!localStorage.getItem('accessToken')) {
-    authLogin()
-  } else {
-    auth()
-  }
+  auth()
 
   const clients = await getAll('clients')
 
