@@ -38,9 +38,8 @@ async function getAll(database) {
 
 // Authenticate phoneNumber
 async function AuthenticatePhoneNumber(phoneNumber) {
-  const clients = await getAll('clients');
-  console.log('Existing clients:', clients);
-  return !clients.some(client => client.phoneNumber === phoneNumber);
+  const clients = await getAll('clients')
+  return !clients.some(client => client.phoneNumber === phoneNumber)
 }
 
 // Get client by phone
@@ -82,6 +81,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
   auth()
+
+  // log-out
+  const logOutBtn = document.getElementById('logout-btn')
+  logOutBtn.addEventListener('click', function () {
+    localStorage.clear()
+    window.location.href = 'https://lattefy.com.uy/auth'
+  })
 
   const clients = await getAll('clients')
 

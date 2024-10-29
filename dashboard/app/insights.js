@@ -96,3 +96,17 @@ function displayTotalProfit(clients) {
     const totalOutput = document.getElementById('total-profit')
     totalOutput.textContent = "$" + totalSum.toFixed(2)
 }
+
+// Average Log Count
+function displayLogCount (clients) {
+    const allLogCounts = clients.map(client => client.logCount)
+
+    let totalLogs = 0
+    for (let i = 0; i < allLogCounts.length; i++) {
+        totalLogs += allLogCounts[i]
+    }
+
+    const logsOutput = document.getElementById('log-count')
+    const averageLogs = (totalLogs / allLogCounts.length).toFixed(0)
+    logsOutput.textContent = averageLogs
+}

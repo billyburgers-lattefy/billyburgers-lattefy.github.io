@@ -138,7 +138,7 @@ async function authLogin(email, password) {
   
   } catch (error) {
     console.log('Authorization failed: ' + error.message)
-    //window.location.href = 'https://lattefy.com.uy/auth'
+    window.location.href = 'https://lattefy.com.uy/auth'
   }
 
 }

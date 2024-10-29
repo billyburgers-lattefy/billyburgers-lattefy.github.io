@@ -32,10 +32,9 @@ function checkSelector () {
 }
 
 // Upload Purchase
-async function uploadPurchase (cedula, amountSpentNow) {
+async function uploadPurchase (phoneNumber, amountSpentNow) {
 
-    const clients =  await getAll('clients')
-    const client = getClientByCedula(clients, cedula)
+    const client = await getClientByPhoneNumber(phoneNumber)
 
     if (client) {
         
@@ -72,7 +71,7 @@ async function uploadPurchase (cedula, amountSpentNow) {
         updates.totalSpent = totalExpenditure
         updates.averageExpenditure = averageExpenditure.toFixed(2)
 
-        await updateClient(cedula, updates)
+        await updateClient(phoneNumber, updates)
         console.log('Se ha cargado la compra con exito!')
 
     } else {
@@ -82,12 +81,11 @@ async function uploadPurchase (cedula, amountSpentNow) {
 }
 
 // Claim Gift
-async function claimGift (cedula) {
+async function claimGift (phoneNumber) {
 
-    cedula = cedula.trim()
+    phoneNumber = phoneNumber.trim()
 
-    const clients =  await getAll('clients')
-    const client = getClientByCedula(clients, cedula)
+    const client = await getClientByPhoneNumber(phoneNumber)
 
     console.log(client)
 
@@ -109,8 +107,7 @@ async function claimGift (cedula) {
             alert(`El cliente no tiene ningun regalo: ${client.currentBillies}/10`)
         }
 
-
-        await updateClient(cedula, updates)
+        await updateClient(phoneNumber, updates)
         console.log('Se ha reclamado el regalo con exito!')
 
     } else {
