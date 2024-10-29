@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         currentBilliesDisplay.innerHTML = `${client.currentBillies} / 9`
         
     } else {
-        window.location.href = './path.html'
+        //window.location.href = './path.html'
         console.log('phoneNumber not found in the URL')
     }
 

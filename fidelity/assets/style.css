@@ -47,20 +47,19 @@ div {
 /* ----------------------------------------- Variables ---------------------------------------------- */
 
 :root {
-    --blue: #0075fa;
-    --orange: #ed6335;
-    --white: #fffefa;
+    --blue: #005aad;
+    --white: #fff2e9;
     --dark: #181c1f;
 
-    --bg-color: var(--white);
+    --bg-color: white;
     --section-bg-color: var(--blue);
     --loader-bg-color: var(--blue);
     --nav-bg-color: rgba(255, 255, 255, 1);
-    --container-bg-color: var(--white);
+    --container-bg-color: white;
 
-    --card-section-bg-color: var(--white);
+    --card-section-bg-color: white;
     --card-bg-color: var(--blue);
-    --card-text-color: var(--white);
+    --card-text-color: white;
 
     --border-color: #ddd;
     --border-color-active: var(--blue);
@@ -386,13 +385,14 @@ section{
 }
 #card .container {
     padding: 20px 30px 30px 30px;
-    width: 300px !important;
+    width: 300px;
+    height: 420px;
     background-color: var(--card-bg-color);
     box-shadow: var(--shadow);
 }
 #card .container img {
-    width: 60%;
-    margin: 0 auto 20px auto;
+    width: 50%;
+    margin: 0 auto 0 auto;
 }
 #card .container .billy-display {
     display: flex;
@@ -426,7 +426,7 @@ section{
     height: 30px;
     width: 200px;
     margin: 0 auto 10px auto;
-    background-color: var(--white);
+    background-color: white;
 }
 #card .container ul .gift p:nth-child(1) {
     color: var(--blue);
@@ -434,8 +434,13 @@ section{
 #card .container ul .gift p:nth-child(2) {
     color: var(--dark);
 }
-#card .container ul li:last-child {
+#card.container ul:nth-child(2),
+#card.container ul:nth-child(3) {
     color: var(--dark);
+}
+#card .container ul li .discount {
+    color: var(--white);
+    font-weight: bold;
 }
 
 /* PATH */
@@ -459,7 +464,7 @@ section{
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--white);
+    color: white;
 }
 #path .container i {
     font-size: 50px;
@@ -469,7 +474,9 @@ section{
     grid-area: c1;
 }
 #path section .container:nth-of-type(2) {
-    background-color: var(--dark);
+    background-color: var(--white);
+    color: var(--blue);
+    border: solid 2px var(--blue);
     grid-area: c2;
 }
 
@@ -500,7 +507,7 @@ section{
 #login .lattefy,
 #form .lattefy,
 #done .lattefy {
-    color: var(--white);
+    color: white;
     background-color: var(--section-bg-color);
 }
 #path .lattefy,
