@@ -1,7 +1,7 @@
 // Billy Burgers - Fidelity Card | Form
 
-// const apiUrl = 'https://backend-nqez.onrender.com';
-const apiUrl = 'http://localhost:3068';
+const apiUrl = 'https://backend-nqez.onrender.com';
+// const apiUrl = 'http://localhost:3068';
 
 // Fetch client by phone number
 async function getClientByPhoneNumber(phoneNumber) {
