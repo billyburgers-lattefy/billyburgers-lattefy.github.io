@@ -38,40 +38,36 @@ function reveal(){
 
 // CONTACT US
 
-// var contactBtn = document.getElementById("contact-btn")
+var contactBtn = document.getElementById("contact-btn")
 
-// contactBtn.addEventListener('click', function(e){
-//   e.preventDefault()
+contactBtn.addEventListener('click', function(e){
+  e.preventDefault()
 
-//   var nombre = document.getElementById('name')
-//   var empresa = document.getElementById('business')
-//   var email = document.getElementById('email')
-//   var phoneNumber = document.getElementById('phone-number')
-//   var msg = document.getElementById('msg')
+  var nombre = document.getElementById('name')
+  var email = document.getElementById('email')
+  var msg = document.getElementById('msg')
 
-//   var body = '<br/> name: ' + nombre.value + '<br/> business: ' + empresa.value + 
-//              '<br/> email: ' + email.value + '<br/> phone number: ' + phoneNumber.value +
-//              '<br/> message: ' + msg.value 
+  var body = '<br/> Nombre: ' + nombre.value + '<br/> Email: ' + email.value + '<br/> Mensaje: ' + msg.value 
              
+  function clearInputs(){
+    nombre.value = ""
+    email.value = ""
+    msg.value = ""
+  }
 
-//   function clearInputs(){
-//     nombre.value = ""
-//     empresa.value = ""
-//     email.value = ""
-//     phoneNumber.value = ""
-//     msg.value = ""
-//   }
+  console.log(body)
 
-//   Email.send({
-//     SecureToken : "09c36a42-e397-48c2-a1a7-7a86178c331c",
-//     To : 'fusion.labs.uy@gmail.com',
-//     From : 'fusion.labs.uy@gmail.com',
-//     Subject : "FusionLabs | Contact Message",
-//     Body : body
-//   }).then(
-//     message => alert("Tu mensaje fue enviado, pronto te llegara una respuesta!")
-//   )
-
-//   clearInputs()
+  Email.send({
+    SecureToken : "ae73bddc-e374-4a2f-8f1c-7259fd64b861",
+    To : 'billyburgers.lattefy@gmail.com',
+    From : 'billyburgers.lattefy@gmail.com',
+    Subject : "BillyBurgers | Mensaje de Contacto",
+    Body : body
+  }).then(
+    message => {
+        alert(message)
+        clearInputs()
+    }
+  )
   
-// })
+})
