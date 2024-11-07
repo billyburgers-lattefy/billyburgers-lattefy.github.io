@@ -80,6 +80,7 @@ async function refreshAccessToken(refreshToken) {
 
     if (!response.ok) {
       throw new Error('Failed to refresh access token')
+      window.location.href = 'https://lattefy.com.uy/auth'
     }
 
     const data = await response.json()
@@ -114,8 +115,6 @@ function clearURL() {
 async function authLogin(email, password) {
   clearURL() 
 
-  console.log(email, password)
-
   try {
     const response = await fetch(`${authUrl}/auth/login`, {
       method: 'POST',
@@ -131,8 +130,6 @@ async function authLogin(email, password) {
     }
 
     const data = await response.json()
-
-    console.log(data)
     localStorage.setItem('accessToken', data.accessToken)
     localStorage.setItem('refreshToken', data.refreshToken)
   
