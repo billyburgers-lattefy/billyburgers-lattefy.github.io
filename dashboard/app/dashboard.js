@@ -1,3 +1,4 @@
+
 // Billy Burgers - Fidelity Card | Dashboard
 
 
@@ -11,30 +12,23 @@ const apiUrl = 'https://backend-nqez.onrender.com'
 // Fetch all clients
 async function getAll(database) {
   try {
-    const response = await fetch(`${apiUrl}/${database}`)
+
+    const response = await fetch(`${apiUrl}/${database}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    }) 
     if (!response.ok) throw new Error('Network response was not ok')
     return await response.json()
+
   } catch (error) {
-    console.error(`Error fetching ${database}:`, error)
+    console.error('Error fetching clients:', error)
     return []
   }
+
 }
-
-// // Fetch all clients with auth
-// async function getAll(database) {
-//   try {
-//     const token = sessionStorage.getItem('authToken') // Retrieve the token from session storage
-//     const response = await fetch(`${apiUrl}/${database}`, {
-//       headers: { 'Authorization': `Bearer ${token}` }
-//     })
-//     if (!response.ok) throw new Error('Network response was not ok')
-//     return await response.json()
-//   } catch (error) {
-//     console.error(`Error fetching ${database}:`, error)
-//     return []
-//   }
-// }
-
 
 // Authenticate phoneNumber
 async function AuthenticatePhoneNumber(phoneNumber) {
@@ -42,16 +36,21 @@ async function AuthenticatePhoneNumber(phoneNumber) {
   return !clients.some(client => client.phoneNumber === phoneNumber)
 }
 
-// Get client by phone
+// Fetch client by phone number
 async function getClientByPhoneNumber(phoneNumber) {
   try {
-    const response = await fetch(`${apiUrl}/clients`)
-    if (!response.ok) throw new Error('Network response was not ok')
-    const clients = await response.json()
-    return clients.find(client => client.phoneNumber === phoneNumber)
+    const response = await fetch(`${apiUrl}/clients/${phoneNumber}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
   } catch (error) {
-    console.error('Error fetching clients:', error)
-    return null
+    console.error('Error fetching client:', error);
+    return null;
   }
 }
 
@@ -60,13 +59,16 @@ async function updateClient(phoneNumber, updates) {
   try {
     const response = await fetch(`${apiUrl}/clients/${phoneNumber}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
       body: JSON.stringify(updates)
-    })
-    const data = await response.json()
-    console.log('Client updated:', data)
+    });
+    const data = await response.json();
+    console.log('Client updated:', data);
   } catch (error) {
-    console.error('Error updating client:', error)
+    console.error('Error updating client:', error);
   }
 }
 
