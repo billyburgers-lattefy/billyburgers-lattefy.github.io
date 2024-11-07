@@ -59,10 +59,12 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
 
         const updates = {}
 
-        if (currentBillies == 5) {
+        if (currentBillies == 4) {
             updates.discountAvailable = true
-        } else if (currentBillies == 10) {
+            sendFileEmail(client, 'discount')
+        } else if (currentBillies == 9) {
             updates.giftAvailable = true
+            sendFileEmail(client, 'gift')
         }
         alert(`Se ha agregado una billie: ${currentBillies}/10`)
 
@@ -93,18 +95,18 @@ async function claimGift (phoneNumber) {
 
         const updates = {}
 
-        if (client.currentBillies >= 5 && client.discountAvailable == true) {
+        if (client.currentBillies >= 4 && client.discountAvailable == true) {
             updates.discountAvailable = false
-            alert(`${client.currentBillies}/10: El cliente reclamo un 10% de descuento`)
+            alert(`${client.currentBillies}/9: El cliente reclamo un 10% de descuento`)
 
-        } else if (client.currentBillies == 10 && client.giftAvailable == true) {
-            updates.currentBillies = client.currentBillies - 10
+        } else if (client.currentBillies == 9 && client.giftAvailable == true) {
+            updates.currentBillies = client.currentBillies - 9
             updates.giftAvailable = false
             updates.claimedBillies = client.claimedBillies + 1
-            alert(`${client.currentBillies}/10: El cliente reclamo una burger gratis`)
+            alert(`${client.currentBillies}/9: El cliente reclamo una burger gratis`)
 
         } else {
-            alert(`El cliente no tiene ningun regalo: ${client.currentBillies}/10`)
+            alert(`El cliente no tiene ningun regalo: ${client.currentBillies}/9`)
         }
 
         await updateClient(phoneNumber, updates)

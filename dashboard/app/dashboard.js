@@ -6,8 +6,8 @@
 /* -------------------------------------- DATABASE CONNECTION -------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
 
-// const apiUrl = 'http://localhost:3087'
-const apiUrl = 'https://backend-nqez.onrender.com'
+const apiUrl = 'http://localhost:3068'
+//const apiUrl = 'https://backend-nqez.onrender.com'
 
 // Fetch all clients
 async function getAll(database) {
