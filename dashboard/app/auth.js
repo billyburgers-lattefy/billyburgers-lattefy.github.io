@@ -89,6 +89,7 @@ async function refreshAccessToken(refreshToken) {
   
   } catch (error) {
     console.log('Error refreshing access token: ' + error.message)
+    window.location.href = 'https://lattefy.com.uy/auth'
     throw error 
   }
 

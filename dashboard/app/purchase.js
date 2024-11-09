@@ -40,7 +40,7 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
         
         const amountSpentNowNum = parseFloat(amountSpentNow)
         if (isNaN(amountSpentNowNum)) {
-            console.error('Invalid amount spent:', amountSpentNow)
+            alert('Importe invalido:', amountSpentNow)
             return
         }
 
@@ -66,7 +66,7 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
             updates.giftAvailable = true
             sendFileEmail(client, 'gift')
         }
-        alert(`Se ha agregado una billie: ${currentBillies}/10`)
+        alert(`Se ha agregado una billie: ${currentBillies}/9`)
 
         updates.currentBillies = currentBillies
         updates.totalBillies = totalBillies
@@ -101,6 +101,7 @@ async function claimGift (phoneNumber) {
 
         } else if (client.currentBillies == 9 && client.giftAvailable == true) {
             updates.currentBillies = client.currentBillies - 9
+            updates.discountAvailable = false
             updates.giftAvailable = false
             updates.claimedBillies = client.claimedBillies + 1
             alert(`${client.currentBillies}/9: El cliente reclamo una burger gratis`)

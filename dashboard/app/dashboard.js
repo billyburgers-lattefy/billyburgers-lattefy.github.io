@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             purchaseBtn.parentNode.replaceChild(newPurchaseBtn, purchaseBtn)
 
             newPurchaseBtn.addEventListener('click', function () {
+                auth()
                 const phoneNumber = document.getElementById('phone-add').value
                 const amountSpentNow = parseFloat(document.getElementById('amount-spent').value)
                 uploadPurchase(phoneNumber, amountSpentNow)
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             giftBtn.parentNode.replaceChild(newGiftBtn, giftBtn)
 
             newGiftBtn.addEventListener('click', function () {
+                auth()
                 const phoneNumber = document.getElementById('phone-gift').value
                 claimGift(phoneNumber)
                 document.getElementById('phone-gift').value = ''
