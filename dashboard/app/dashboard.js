@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
   auth()
+  window.location.reload()
 
   // log-out
   const logOutBtn = document.getElementById('logout-btn')
