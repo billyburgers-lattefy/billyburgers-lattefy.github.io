@@ -82,10 +82,7 @@ async function updateClient(phoneNumber, updates) {
 document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
-  let clients 
-  auth().then(
-    clients = await getAll('clients')
-  )
+  auth()
 
   // log-out
   const logOutBtn = document.getElementById('logout-btn')

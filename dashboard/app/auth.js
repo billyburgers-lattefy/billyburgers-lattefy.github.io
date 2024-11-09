@@ -7,37 +7,26 @@ async function auth() {
   const email = getEmailFromURL()
   const password = getPasswordFromURL()
 
+  const accessToken = localStorage.getItem('accessToken')
+  const refreshToken = localStorage.getItem('refreshToken')
+
   if (email && password) {
     await authLogin(email, password) 
+  } else if (refreshToken || accessToken){
+    await validateTokens(accessToken, refreshToken) 
   } else {
-    await validateTokens() 
+    window.location.href = 'https://lattefy.com.uy/auth'
   }
 }
 
 // Token Validation
-async function validateTokens() {
-
-  const accessToken = localStorage.getItem('accessToken')
-  const refreshToken = localStorage.getItem('refreshToken')
-
-  if (!accessToken) {
-    console.log('No access token found, redirecting to login')
-    window.location.href = 'https://lattefy.com.uy/auth'
-    return
-  }
+async function validateTokens(accessToken, refreshToken) {
 
   // Validate access token against the server
   const tokenValid = await validateAccessToken(accessToken)
   if (!tokenValid) {
-    if (!refreshToken) {
-      console.log('No refresh token available, redirecting to login')
-      window.location.href = 'https://lattefy.com.uy/auth'
-      return
-    }
-
     console.log('Access token expired or invalid, refreshing...')
     await refreshAccessToken(refreshToken)
-
   } else {
     console.log('Access token is valid')
   }
@@ -80,7 +69,6 @@ async function refreshAccessToken(refreshToken) {
 
     if (!response.ok) {
       throw new Error('Failed to refresh access token')
-      window.location.href = 'https://lattefy.com.uy/auth'
     }
 
     const data = await response.json()
