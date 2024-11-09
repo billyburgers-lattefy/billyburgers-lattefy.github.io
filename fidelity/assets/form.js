@@ -21,31 +21,26 @@ async function getClientByPhoneNumber(phoneNumber) {
   }
 }
 
-// // Authenticate client by phone number and obtain token
-// async function AuthenticatePhoneNumber(phoneNumber) {
-//   try {
-//     const response = await fetch(`${apiUrl}/auth/login`, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ phoneNumber })
-//     })
-
-//     if (!response.ok) throw new Error('Authentication failed')
-
-//     const data = await response.json()
-//     localStorage.setItem('accessToken', data.accessToken) // Store access token in local storage
-//     return data
-//   } catch (error) {
-//     console.error('Error authenticating phone number:', error)
-//     return null
-//   }
-// }
-
-// Authenticate phoneNumber
+// Authenticate client by phone number and obtain token
 async function AuthenticatePhoneNumber(phoneNumber) {
-  const clients = await getAll('clients')
-  return !clients.some(client => client.phoneNumber === phoneNumber)
+  try {
+    const response = await fetch(`${apiUrl}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber })
+    })
+
+    if (!response.ok) throw new Error('Authentication failed')
+
+    const data = await response.json()
+    localStorage.setItem('accessToken', data.accessToken) // Store access token in local storage
+    return data
+  } catch (error) {
+    console.error('Error authenticating phone number:', error)
+    return null
+  }
 }
+
 
 // Create client
 async function createClient(clientData) {

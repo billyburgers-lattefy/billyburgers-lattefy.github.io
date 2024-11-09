@@ -376,6 +376,10 @@ section{
     align-items: center;
     text-align: center;
 }
+#done .container img {
+    width: 100px;
+    height: auto;
+}
 
 /* CARD */
 
