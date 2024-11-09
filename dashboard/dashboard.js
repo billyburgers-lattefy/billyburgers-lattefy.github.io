@@ -6,7 +6,7 @@
 /* -------------------------------------- DATABASE CONNECTION -------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
 
-// const apiUrl = 'http://localhost:3087'
+// const apiUrl = 'http://localhost:3068'
 const apiUrl = 'https://backend-nqez.onrender.com'
 
 // Fetch all clients
@@ -82,7 +82,7 @@ async function updateClient(phoneNumber, updates) {
 document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
-  //auth()
+  auth()
 
   // log-out
   const logOutBtn = document.getElementById('logout-btn')
@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   })
 
   const clients = await getAll('clients')
-  console.log('clients')
 
   // Loader
   if (
