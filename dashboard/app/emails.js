@@ -2,14 +2,12 @@
 
 const images = {
    discount: 'https://res.cloudinary.com/dif3u3ft1/image/upload/v1731019308/discount_ttvqrd.png',
-   gift: 'https://res.cloudinary.com/dif3u3ft1/image/upload/v1731019308/gift_lvp1rw.png',
-   card: 'https://res.cloudinary.com/dif3u3ft1/image/upload/v1731019307/card_oac2x2.png'
+   gift: 'https://res.cloudinary.com/dif3u3ft1/image/upload/v1731019308/gift_lvp1rw.png'
 }
 
 const titles = {
     discount: '¡Ganaste un 15% OFF en tu proxima compra!',
-    gift: '¡Reclama tu burger 100% gratis!',
-    card: 'Ya podes empezar a sumar billies!'
+    gift: '¡Reclama tu burger 100% gratis!'
 }
 
 let imageUrl
@@ -23,9 +21,6 @@ async function sendFileEmail(client, why) {
     } else if (why == 'discount') {
         imageUrl = images.discount
         title = titles.discount
-    } else if (why == 'card') {
-        imageUrl = images.card
-        title = titles.card
     }
 
     try {

@@ -863,7 +863,7 @@ body#campaigns .sidebar .menu li:nth-child(5) a {
 }
 #campaigns .main .card h3{
     font-size: 30px;
-    margin: 10px 0;
+    margin: 10px 0 20px 0;
 }
 #campaigns .main .card p{
     font-size: 15px;

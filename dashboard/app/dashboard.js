@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.location.href = 'https://lattefy.com.uy/auth'
   })
 
-  
+  const clients = await getAll('clients')
 
   // Loader
   if (
@@ -178,6 +178,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Campaigns
   if(document.getElementById('campaigns')) {
+
+    const fileInput = document.getElementById('image-upload');
+    const fileName = document.getElementById('file-name');
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0]
+        if (file) {
+            fileName.textContent = file.name
+        } else {
+            fileName.textContent = '' 
+        }
+    })
 
     document.getElementById('campaign-btn').addEventListener('click', async (e) => {
       e.preventDefault()
