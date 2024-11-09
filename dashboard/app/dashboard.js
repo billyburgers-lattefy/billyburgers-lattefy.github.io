@@ -25,6 +25,7 @@ async function getAll(database) {
 
   } catch (error) {
     console.error('Error fetching clients:', error)
+    window.location.reload()
     return []
   }
 
@@ -44,13 +45,13 @@ async function getClientByPhoneNumber(phoneNumber) {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
       }
-    });
+    })
 
-    if (!response.ok) throw new Error('Network response was not ok');
-    return await response.json();
+    if (!response.ok) throw new Error('Network response was not ok')
+    return await response.json()
   } catch (error) {
-    console.error('Error fetching client:', error);
-    return null;
+    console.error('Error fetching client:', error)
+    return null
   }
 }
 
@@ -64,11 +65,11 @@ async function updateClient(phoneNumber, updates) {
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
       },
       body: JSON.stringify(updates)
-    });
-    const data = await response.json();
-    console.log('Client updated:', data);
+    })
+    const data = await response.json()
+    console.log('Client updated:', data)
   } catch (error) {
-    console.error('Error updating client:', error);
+    console.error('Error updating client:', error)
   }
 }
 
@@ -83,7 +84,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
   auth()
-  window.location.reload()
 
   // log-out
   const logOutBtn = document.getElementById('logout-btn')
