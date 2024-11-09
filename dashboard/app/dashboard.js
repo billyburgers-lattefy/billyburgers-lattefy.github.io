@@ -25,7 +25,6 @@ async function getAll(database) {
 
   } catch (error) {
     console.error('Error fetching clients:', error)
-    window.location.reload()
     return []
   }
 
@@ -83,7 +82,10 @@ async function updateClient(phoneNumber, updates) {
 document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
-  auth()
+  let clients 
+  auth().then(
+    clients = await getAll('clients')
+  )
 
   // log-out
   const logOutBtn = document.getElementById('logout-btn')
@@ -92,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.location.href = 'https://lattefy.com.uy/auth'
   })
 
-  const clients = await getAll('clients')
+  
 
   // Loader
   if (
