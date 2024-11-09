@@ -77,7 +77,7 @@ div {
 /* ------------------------------------------- Loader ---------------------------------------------- */
 
 #loader {
-    background: var(--loader-bg-color) url(images/loader.svg) no-repeat center center;
+    background: var(--loader-bg-color) url(images/website/loaders/loader-white.svg) no-repeat center center;
     display: block;
     background-size: 10%;
     position: fixed;
