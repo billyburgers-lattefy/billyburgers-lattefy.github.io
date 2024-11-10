@@ -364,9 +364,9 @@ section{
 #login .container *input:nth-of-type(1) {
     margin-bottom: 10px;
 }
-#login .container .label {
+/* #login .container .label {
     transform: translateX(calc(-100% - 65px));
-}
+} */
 
 /* DONE */
 

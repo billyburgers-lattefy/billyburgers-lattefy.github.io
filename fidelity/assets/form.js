@@ -93,8 +93,8 @@ async function sendCardEmail(client) {
           image_url: imageUrl || ''
       }
 
-      const serviceID = 'service_u4c98ke';
-      const templateID = 'template_jl1x1mv';
+      const serviceID = 'service_u4c98ke'
+      const templateID = 'template_jl1x1mv'
 
       await emailjs.send(serviceID, templateID, templateParams)
 
@@ -124,47 +124,60 @@ function clearURL() {
 
 // Function to validate inputs
 function validateInputs(name, email, phoneNumber) {
-  let isValid = true;
+  let isValid = true
 
   // Name validation (basic check: not empty)
-  const nameInput = document.getElementById('name');
-  const nameLabel = document.getElementById('name-label');
+  const nameInput = document.getElementById('name')
+  const nameLabel = document.getElementById('name-label')
   if (!name.trim()) {
-      nameInput.style.borderColor = 'red';
-      nameLabel.textContent = 'Nombre completo - Este campo es obligatorio';
-      isValid = false;
+      nameInput.style.borderColor = 'red'
+      nameLabel.textContent = 'Nombre completo - Este campo es obligatorio'
+      isValid = false
   } else {
-      nameInput.style.borderColor = '';
-      nameLabel.textContent = 'Nombre completo';
+      nameInput.style.borderColor = ''
+      nameLabel.textContent = 'Nombre completo'
   }
 
   // Email validation
-  const emailInput = document.getElementById('email');
-  const emailLabel = document.getElementById('email-label');
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailInput = document.getElementById('email')
+  const emailLabel = document.getElementById('email-label')
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailPattern.test(email)) {
-      emailInput.style.borderColor = 'red';
-      emailLabel.textContent = 'Email - Por favor ingrese un email válido';
-      isValid = false;
+      emailInput.style.borderColor = 'red'
+      emailLabel.textContent = 'Email - Por favor ingrese un email válido'
+      isValid = false
   } else {
-      emailInput.style.borderColor = '';
-      emailLabel.textContent = 'Email';
+      emailInput.style.borderColor = ''
+      emailLabel.textContent = 'Email'
   }
 
   // Phone number validation
-  const phoneInput = document.getElementById('phoneNumber');
-  const phoneLabel = document.getElementById('phoneNumber-label');
-  const phonePattern = /^0\d{8}$/; // Ensures it starts with 0 and is 9 digits
-  if (!phonePattern.test(phoneNumber)) {
-      phoneInput.style.borderColor = 'red';
-      phoneLabel.textContent = 'Celular - Debe comenzar con 0 y tener 9 dígitos';
-      isValid = false;
-  } else {
-      phoneInput.style.borderColor = '';
-      phoneLabel.textContent = 'Celular';
+  const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
+  if (!isPhoneNumberValid) {
+    isValid = false
   }
 
-  return isValid;
+  return isValid
+}
+
+function validatePhoneNumber (phoneNumber) {
+
+  let valid = true
+
+  const phoneInput = document.getElementById('phoneNumber')
+  const phoneLabel = document.getElementById('phoneNumber-label')
+  const phonePattern = /^0\d{8}$/ // starts with 0 and is 9 digits
+  if (!phonePattern.test(phoneNumber)) {
+      phoneInput.style.borderColor = 'red'
+      phoneLabel.textContent = 'Debe comenzar con 0 y tener 9 dígitos'
+      valid = false
+  } else {
+      phoneInput.style.borderColor = ''
+      phoneLabel.textContent = 'Celular'
+  }
+
+  return valid
+
 }
 
 
@@ -183,12 +196,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       event.preventDefault()
 
       // Get values from inputs
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phoneNumber = document.getElementById('phoneNumber').value;
+      const name = document.getElementById('name').value
+      const email = document.getElementById('email').value
+      const phoneNumber = document.getElementById('phoneNumber').value
 
       // Validate inputs
-      const isFormValid = validateInputs(name, email, phoneNumber);
+      const isFormValid = validateInputs(name, email, phoneNumber)
 
       if (isFormValid) {
 
@@ -231,16 +244,16 @@ document.addEventListener('DOMContentLoaded', async function () {
           sendCardEmail(clientData)
           console.log('Client created successfully')
           window.location.href = 'done.html'
+
         } catch (error) {
           console.error('Error creating or updating client:', error)
           window.location.href = 'login.html'
         } finally {
           loader.style.display = "none"
         }
-     
 
-     } else {
-        console.log('Invalid form inputs.');
+      } else {
+        console.log('Invalid form inputs.')
       }
 
     })
@@ -249,28 +262,46 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Login
   if (document.getElementById('login')) {
+
     document.getElementById('login-btn').addEventListener('click', async function (event) {
       event.preventDefault()
-      loader.style.display = "block"
 
-      const phoneNumber = document.getElementById("phoneNumber").value
+      const phoneNumber = document.getElementById('phoneNumber').value
+      const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
 
-      try {
-        const authData = await AuthenticatePhoneNumber(phoneNumber)
-        if (authData) {
-          console.log('Client authenticated successfully')
-          window.location.href = `./index.html?phoneNumber=${phoneNumber}`
-        } else {
-          alert('User not found.')
-          window.location.href = 'form.html'
+      if (isPhoneNumberValid) {
+
+        loader.style.display = "block"
+
+        try {
+          const authData = await AuthenticatePhoneNumber(phoneNumber)
+          if (authData) {
+            console.log('Client authenticated successfully')
+  
+            const client = await getClientByPhoneNumber(phoneNumber)
+            updates = {
+              logCount: client.logCount += 1
+            }
+            await updateClient(phoneNumber, updates)
+  
+            window.location.href = `./index.html?phoneNumber=${phoneNumber}`
+          } else {
+            alert('User not found.')
+            window.location.href = 'form.html'
+          }
+  
+        } catch (error) {
+          console.error('Error logging in:', error)
+        } finally {
+          loader.style.display = "none"
         }
 
-      } catch (error) {
-        console.error('Error logging in:', error)
-      } finally {
-        loader.style.display = "none"
+      } else {
+        console.log('Invalid phone number')
       }
+
     })
+  
   }
 
   // Card
