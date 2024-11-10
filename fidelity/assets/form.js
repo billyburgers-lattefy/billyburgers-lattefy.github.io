@@ -122,7 +122,50 @@ function clearURL() {
 
 
 
+// Function to validate inputs
+function validateInputs(name, email, phoneNumber) {
+  let isValid = true;
 
+  // Name validation (basic check: not empty)
+  const nameInput = document.getElementById('name');
+  const nameLabel = document.getElementById('name-label');
+  if (!name.trim()) {
+      nameInput.style.borderColor = 'red';
+      nameLabel.textContent = 'Nombre completo - Este campo es obligatorio';
+      isValid = false;
+  } else {
+      nameInput.style.borderColor = '';
+      nameLabel.textContent = 'Nombre completo';
+  }
+
+  // Email validation
+  const emailInput = document.getElementById('email');
+  const emailLabel = document.getElementById('email-label');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+      emailInput.style.borderColor = 'red';
+      emailLabel.textContent = 'Email - Por favor ingrese un email válido';
+      isValid = false;
+  } else {
+      emailInput.style.borderColor = '';
+      emailLabel.textContent = 'Email';
+  }
+
+  // Phone number validation
+  const phoneInput = document.getElementById('phoneNumber');
+  const phoneLabel = document.getElementById('phoneNumber-label');
+  const phonePattern = /^0\d{8}$/; // Ensures it starts with 0 and is 9 digits
+  if (!phonePattern.test(phoneNumber)) {
+      phoneInput.style.borderColor = 'red';
+      phoneLabel.textContent = 'Celular - Debe comenzar con 0 y tener 9 dígitos';
+      isValid = false;
+  } else {
+      phoneInput.style.borderColor = '';
+      phoneLabel.textContent = 'Celular';
+  }
+
+  return isValid;
+}
 
 
 
@@ -138,53 +181,70 @@ document.addEventListener('DOMContentLoaded', async function () {
   if (document.getElementById('form')) {
     document.getElementById('form-btn').addEventListener('click', async function (event) {
       event.preventDefault()
-      loader.style.display = "block"
 
-      const phoneNumber = document.getElementById("phoneNumber").value
-      const clientData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phoneNumber,
-        logCount: 0,
-        startDate: new Date(),
-        lastRating: 0,
-        averageRating: 0,
-        discountAvailable: false,
-        giftAvailable: false,
-        currentBillies: 0,
-        totalBillies: 0,
-        claimedBillies: 0,
-        totalSpent: 0,
-        averageExpenditure: 0
-      }
+      // Get values from inputs
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
 
-      try {
-        // Instead of authenticating, directly sign up the client
-        const signupResponse = await fetch(`${apiUrl}/auth/signup`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(clientData)
-        })
+      // Validate inputs
+      const isFormValid = validateInputs(name, email, phoneNumber);
 
-        if (!signupResponse.ok) {
-          throw new Error('Signup failed')
+      if (isFormValid) {
+
+        loader.style.display = "block"
+
+        const clientData = {
+          name: name,
+          email: email,
+          phoneNumber: phoneNumber,
+          logCount: 0,
+          startDate: new Date(),
+          lastRating: 0,
+          averageRating: 0,
+          discountAvailable: false,
+          giftAvailable: false,
+          currentBillies: 0,
+          totalBillies: 0,
+          claimedBillies: 0,
+          totalSpent: 0,
+          averageExpenditure: 0
         }
+  
+        try {
+          // Instead of authenticating, directly sign up the client
+          const signupResponse = await fetch(`${apiUrl}/auth/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clientData)
+          })
+  
+          if (!signupResponse.ok) {
+            throw new Error('Signup failed')
+          }
+  
+          const authData = await signupResponse.json()
+          localStorage.setItem('accessToken', authData.accessToken)
+          await createClient(clientData)
+          sendCardEmail(clientData)
+          console.log('Client created successfully')
+          window.location.href = 'done.html'
+        } catch (error) {
+          console.error('Error creating or updating client:', error)
+          window.location.href = 'login.html'
+        } finally {
+          loader.style.display = "none"
+        }
+     
 
-        const authData = await signupResponse.json()
-        localStorage.setItem('accessToken', authData.accessToken)
-        await createClient(clientData)
-        sendCardEmail(clientData)
-        console.log('Client created successfully')
-        window.location.href = 'done.html'
-      } catch (error) {
-        console.error('Error creating or updating client:', error)
-        window.location.href = 'login.html'
-      } finally {
-        loader.style.display = "none"
+     } else {
+        console.log('Invalid form inputs.');
       }
+
     })
+
   }
 
   // Login
