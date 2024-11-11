@@ -664,7 +664,6 @@ body#clients .sidebar .menu li:nth-child(2) a {
     background-color: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: var(--card-shadow);
 }
 #clients .main select,
 #clients .main input {
@@ -701,7 +700,6 @@ body#clients .sidebar .menu li:nth-child(2) a {
     border: none;
     transform: translateY(5px);
     transition: ease-in-out 0.2s;
-    box-shadow: var(--btn-shadow);
 }
 #clients .main .sort-filter .sort-filter-btns a:first-child {
     background-color: white;

@@ -82,7 +82,7 @@ async function updateClient(phoneNumber, updates) {
 document.addEventListener('DOMContentLoaded', async function () {
 
   // auth
-  auth()
+  await auth()
 
   const clients = await getAll('clients')
 

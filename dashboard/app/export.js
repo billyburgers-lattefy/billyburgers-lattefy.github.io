@@ -45,7 +45,7 @@ function convertToCSV(clients) {
 
     clients.forEach(client => {
     const row = [
-        client.name, client.phoneNumber, client.email, client.startDate, 
+        client.name, client.email, client.phoneNumber, client.startDate, 
         client.logCount, client.discountAvailable, client.giftAvailable,
         client.currentBillies, client.totalBillies, client.claimedBillies, 
         client.averageExpenditure, client.totalSpent
