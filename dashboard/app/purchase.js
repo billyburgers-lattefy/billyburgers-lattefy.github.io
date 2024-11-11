@@ -24,11 +24,35 @@ function toggleInputs() {
 }
 
 functionSelector.addEventListener('change', toggleInputs)
-
 toggleInputs()
 
 function checkSelector () {
     return functionSelector.value
+}
+
+
+// Validate Inputs 
+
+function validatePhoneNumber (phoneNumber) {
+
+    let phoneInput
+    if (document.getElementById('phone-add')) {
+        phoneInput = document.getElementById('phone-add')
+    } else if (document.getElementById('phone-gift')) {
+        phoneInput = document.getElementById('phone-add')
+    } else {
+        phoneInput = document.getElementById('phoneNumber')
+    }
+   
+    const phonePattern = /^0\d{8}$/ // starts with 0 and is 9 digits
+    if (!phonePattern.test(phoneNumber)) {
+        phoneInput.style.borderColor = 'red'
+        alert('El celular debe comenzar con 0 y tener 9 dígitos')
+        valid = false
+    } else {
+        phoneInput.style.borderColor = ''
+    }
+  
 }
 
 // Upload Purchase
@@ -36,13 +60,14 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
 
     const client = await getClientByPhoneNumber(phoneNumber)
 
-    if (client) {
+    if (client && client.currentBillies < 9) {
         
+        validatePhoneNumber(phoneNumber)
         const amountSpentNowNum = parseFloat(amountSpentNow)
         if (isNaN(amountSpentNowNum)) {
             alert('Importe invalido:', amountSpentNow)
             return
-        }
+        }  
 
         const totalExpenditure = client.totalSpent + amountSpentNowNum
 
@@ -76,6 +101,8 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
         await updateClient(phoneNumber, updates)
         console.log('Se ha cargado la compra con exito!')
 
+    } else if (client && client.currentBillies == 9) {
+        alert(`${client.currentBillies}/9: El cliente debe reclamar su burger gratis`)
     } else {
         alert('No se ha encontrado el cliente.')
     }
@@ -97,7 +124,7 @@ async function claimGift (phoneNumber) {
 
         if (client.currentBillies >= 4 && client.discountAvailable == true) {
             updates.discountAvailable = false
-            alert(`${client.currentBillies}/9: El cliente reclamo un 10% de descuento`)
+            alert(`${client.currentBillies}/9: El cliente reclamo un 15% de descuento`)
 
         } else if (client.currentBillies == 9 && client.giftAvailable == true) {
             updates.currentBillies = client.currentBillies - 9
