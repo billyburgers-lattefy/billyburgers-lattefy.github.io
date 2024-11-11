@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   // auth
   auth()
 
+  const clients = await getAll('clients')
+
   // log-out
   const logOutBtn = document.getElementById('logout-btn')
   logOutBtn.addEventListener('click', function () {
@@ -91,16 +93,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.location.href = 'https://lattefy.com.uy/auth'
   })
 
-  const clients = await getAll('clients')
-
   // Loader
-  if (
-    document.getElementById('dashboard') || 
-    document.getElementById('clients') ||
-    document.getElementById('stats') ||
-    document.getElementById('campaigns') ||
-    document.getElementById('download')
-  ) {
+  if (kdocument.getElementById("loader")) {
     var loader = document.getElementById("loader")
     loader.style.display = "none"
   }
