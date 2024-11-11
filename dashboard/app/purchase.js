@@ -58,16 +58,16 @@ function validatePhoneNumber (phoneNumber) {
 // Upload Purchase
 async function uploadPurchase (phoneNumber, amountSpentNow) {
 
+    validatePhoneNumber(phoneNumber)
+    const amountSpentNowNum = parseFloat(amountSpentNow)
+    if (isNaN(amountSpentNowNum)) {
+        alert('Importe invalido:', amountSpentNow)
+        return
+    } 
+
     const client = await getClientByPhoneNumber(phoneNumber)
 
-    if (client && client.currentBillies < 9) {
-        
-        validatePhoneNumber(phoneNumber)
-        const amountSpentNowNum = parseFloat(amountSpentNow)
-        if (isNaN(amountSpentNowNum)) {
-            alert('Importe invalido:', amountSpentNow)
-            return
-        }  
+    if (client && client.currentBillies < 9) { 
 
         const totalExpenditure = client.totalSpent + amountSpentNowNum
 
