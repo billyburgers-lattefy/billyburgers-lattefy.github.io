@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   })
 
   // Loader
-  if (kdocument.getElementById("loader")) {
+  if (document.getElementById("loader")) {
     var loader = document.getElementById("loader")
     loader.style.display = "none"
   }
