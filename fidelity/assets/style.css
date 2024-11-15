@@ -347,9 +347,15 @@ section{
     text-align: left;
 }
 #form .container {
-    width: 300px;
+    width: 310px;
     height: auto;
-} 
+}
+#form .container #terms p,
+#form .container #terms p a
+{
+    font-size: 10px;
+}
+
 
 /* LOGIN */
 
@@ -359,14 +365,14 @@ section{
     align-items: center;
 }
 #login .container img {
-    width: 100px;
+    width: 90px;
 }
 #login .container *input:nth-of-type(1) {
     margin-bottom: 10px;
 }
-/* #login .container .label {
-    transform: translateX(calc(-100% - 65px));
-} */
+#login .container p:nth-child(3) {
+    margin-bottom: 15px;
+}
 
 /* DONE */
 
@@ -458,8 +464,6 @@ section{
         "c1 c2"
     ;
     gap: 10px;
-}
-#path section {
     padding: 75px 20px 75px 20px;
 }
 #path .container {
