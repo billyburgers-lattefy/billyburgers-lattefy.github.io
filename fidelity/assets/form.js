@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           const authData = await signupResponse.json()
           localStorage.setItem('accessToken', authData.accessToken)
           await createClient(clientData)
-          sendCardEmail(clientData)
+          await sendCardEmail(clientData)
           console.log('Client created successfully')
           window.location.href = 'done.html'
 
