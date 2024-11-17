@@ -521,8 +521,7 @@ body#dashboard .sidebar .menu li:nth-child(1) a {
     overflow-x: auto;
     overflow-y: auto;
     margin: 10px;
-    height: 100%;
-    /* max-height: 250px; */
+    max-height: 250px;
 }
 #dashboard .main .card:nth-child(5) table {
     width: 100%;
@@ -630,6 +629,7 @@ body#clients .sidebar .menu li:nth-child(2) a {
     flex-grow: 1;
     overflow: auto; 
     margin: 10px;
+    max-height: 80%;
 }
 #clients .main .card table {
     width: 100%;
@@ -1095,6 +1095,9 @@ body#download .sidebar .menu li:nth-child(6) a {
     }
     #dashboard .main .card:nth-child(5) {
         height: 400px;
+    }
+    #dashboard .main .card:nth-child(5) .table-container {
+        max-height: 350px;
     }
     #dashboard .main .card:nth-child(6) {
         padding: 20px;
