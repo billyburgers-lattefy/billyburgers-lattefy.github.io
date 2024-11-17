@@ -518,7 +518,9 @@ body#dashboard .sidebar .menu li:nth-child(1) a {
 
 #dashboard .main .card:nth-child(5) .table-container {
     flex-grow: 1;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 2fr;
     margin: 10px;
 }
 #dashboard .main .card:nth-child(5) table {
