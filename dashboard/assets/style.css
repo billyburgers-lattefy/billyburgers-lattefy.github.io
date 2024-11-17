@@ -521,6 +521,7 @@ body#dashboard .sidebar .menu li:nth-child(1) a {
     overflow-x: auto;
     overflow-y: auto;
     margin: 10px;
+    max-height: 250px;
 }
 #dashboard .main .card:nth-child(5) table {
     width: 100%;
