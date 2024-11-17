@@ -446,6 +446,7 @@ select {
     background-color: white;
     border-radius: 10px;
     padding: 0px 20px;
+    overflow: hidden; 
 }
 .main .card p {
     font-size: 15px;
@@ -469,11 +470,6 @@ select {
         "c4 c4 c5"
     ;
     gap: 10px;
-    height: 100%;
-}
-
-#dashboard .main .card {
-    min-height: 0;
     height: 100%;
 }
 
