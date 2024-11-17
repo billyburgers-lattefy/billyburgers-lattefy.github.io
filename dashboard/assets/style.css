@@ -470,7 +470,6 @@ select {
         "c4 c4 c5"
     ;
     gap: 10px;
-    height: 100%;
 }
 
 #dashboard .main .card:nth-child(2) {
@@ -518,9 +517,9 @@ body#dashboard .sidebar .menu li:nth-child(1) a {
 /* --------------------------------- Clients Database Table ---------------------------------------- */
 
 #dashboard .main .card:nth-child(5) .table-container {
-    flex-grow: 1;
-    overflow-y: auto;
+    /* flex-grow: 1; */
     overflow-x: auto;
+    overflow-y: auto;
     margin: 10px;
 }
 #dashboard .main .card:nth-child(5) table {
