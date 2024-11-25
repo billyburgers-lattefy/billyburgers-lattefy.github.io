@@ -627,9 +627,9 @@ body#clients .sidebar .menu li:nth-child(2) a {
 }
 #clients .main .card .table-container {
     flex-grow: 1;
-    overflow: auto; 
+    overflow: auto;
     margin: 10px;
-    max-height: 80%;
+    max-height: 300px;
 }
 #clients .main .card table {
     width: 100%;
