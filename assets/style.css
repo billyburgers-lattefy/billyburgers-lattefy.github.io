@@ -293,7 +293,7 @@ nav {
 
     height: 80px;
     width: 100vw;
-    padding: 4vh 4vw;
+    padding: 4vh 6vw;
     z-index: 2;
 
     background-color: var(--nav-bg-color);
@@ -303,7 +303,7 @@ nav .logo {
     display: flex;
 }
 nav .logo img {
-    height: 78px;
+    width: 120px;
 }
 nav .logo h2 {
     font-family: var(--heading-font);
@@ -556,7 +556,7 @@ nav .nav-btns .location i {
 
 
 /* --------------------------------------------------------------------------------------------------*/
-/* ------------------------------------------- FIDELITY -------------------------------------------- */
+/* ------------------------------------------- LOCATION -------------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
 
 #location {
@@ -597,10 +597,10 @@ nav .nav-btns .location i {
 }
 
 
+
 /* --------------------------------------------------------------------------------------------------*/
 /* ---------------------------------------- CONTACT US --------------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
-
 
 #contact-us .reveal {
     display: flex;
@@ -618,7 +618,7 @@ nav .nav-btns .location i {
 }
 #contact-us .form input,
 #contact-us .form textarea {
-    height: 9vh;
+    height: 50px;
     width: 84vw;
     color: var(--blue);
     background-color: white;
@@ -627,7 +627,7 @@ nav .nav-btns .location i {
     border-radius: 10px;
     border: 2px solid var(--white);
     transition: all 0.3s ease;
-    padding: 2vh 1vw;
+    padding: 5px 5px 5px 10px;
     margin: 1vh 0;
 }
 #contact-us .form .top input:focus,
@@ -650,8 +650,51 @@ nav .nav-btns .location i {
 
 
 /* --------------------------------------------------------------------------------------------------*/
-/* ------------------------------------------ FOOTER ----------------------------------------------- */
+/* ------------------------------------------ DELIVERY --------------------------------------------- */
 /* --------------------------------------------------------------------------------------------------*/
+
+#delivery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "c1 c2"
+    ;
+    gap: 10px;
+    padding: 80px 20px 20px 20px;
+}
+#delivery .container {
+    height: calc(100vh - 80px - 20px);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+#delivery .container i {
+    font-size: 50px;
+}
+#delivery .container:nth-of-type(1) {
+    background-color: var(--blue);
+    grid-area: c1;
+}
+#delivery .container:nth-of-type(1) h2{
+    color: var(--white);
+    text-decoration: none;
+}
+#delivery .container:nth-of-type(2) {
+    background-color: var(--white);
+    color: var(--blue);
+    border: solid 2px var(--blue);
+    grid-area: c2;
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------ FOOTER ----------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------- */
 
 footer {
     display: flex;
@@ -769,6 +812,7 @@ footer ul li a {
     /* Vertical Raceline Divider */
     .raceline-divider-vertical .one,
     .raceline-divider-vertical .two {
+        height: 75vh;
         width: 10px;
         background: repeating-linear-gradient(
             to bottom,
@@ -920,7 +964,6 @@ footer ul li a {
         flex-direction: column;
     }
 
-
     /* RESPONSIVE | Columns */
 
     #about-us .columns,
@@ -943,4 +986,27 @@ footer ul li a {
         height: auto;
         margin: 0 auto;
     }
+
+    /* RESPONSIVE | Contact Us */
+
+    #conatct-us .form .top {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* RESPONSIVE | Delivery */
+
+    #delivery {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+            "c1"
+            "c2"
+        ;
+        gap: 10px;
+    }
+    #delivery .container {
+        height: calc(50vh - 40px - 20px - 5px);
+    }
+
 }
