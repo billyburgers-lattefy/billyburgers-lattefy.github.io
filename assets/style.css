@@ -477,6 +477,9 @@ nav .nav-btns .location i {
     margin: 0 auto;
     overflow: hidden;
 }
+#brand h2:nth-of-type(2) {
+    display: none;
+}
 
 /* Carousel */
 
@@ -987,6 +990,15 @@ footer ul li a {
         margin: 0 auto;
     }
 
+    /* RESPONSIVE | Brand */
+
+    #brand h2:nth-of-type(1) {
+        display: none;
+    }
+    #brand h2:nth-of-type(2) {
+        display: block;
+    }
+
     /* RESPONSIVE | Contact Us */
 
     #conatct-us .form .top {
@@ -1007,6 +1019,15 @@ footer ul li a {
     }
     #delivery .container {
         height: calc(50vh - 40px - 20px - 5px);
+    }
+
+    /* RESPONSIVE | Footer */
+
+    footer {
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        gap: 20px;
+        height: auto;
     }
 
 }
