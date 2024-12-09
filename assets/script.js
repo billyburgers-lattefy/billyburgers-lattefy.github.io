@@ -58,7 +58,7 @@ contactBtn.addEventListener('click', function(e){
   console.log(body)
 
   Email.send({
-    SecureToken : "ae73bddc-e374-4a2f-8f1c-7259fd64b861",
+    SecureToken : "caa0eb1e-3984-4d8e-b2f6-6710d77a9056",
     To : 'billyburgers.lattefy@gmail.com',
     From : 'billyburgers.lattefy@gmail.com',
     Subject : "BillyBurgers | Mensaje de Contacto",
