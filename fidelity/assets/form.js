@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           await createClient(clientData)
           await sendCardEmail(clientData)
           console.log('Client created successfully')
-          window.location.href = 'done.html'
+          window.location.href = `./done.html?phoneNumber=${phoneNumber}`
 
         } catch (error) {
           console.error('Error creating or updating client:', error)
@@ -302,6 +302,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     })
   
+  }
+
+  // Done
+  if (document.getElementById('done')) {
+
+    const phoneNumber = getPhoneNumberFromURL()
+    
+    document.getElementById('done-btn').addEventListener('click', async () => {
+      if (phoneNumber) {
+        window.location.href = `./index.html?phoneNumber=${phoneNumber}`
+      } else {
+        window.location.href = './login.html'
+      }
+
+    })
+
   }
 
   // Card
