@@ -9,7 +9,7 @@ async function getClientByPhoneNumber(phoneNumber) {
     const response = await fetch(`${apiUrl}/clients/${phoneNumber}`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'Authorization': `Bearer ${localStorage.getItem('billyToken')}`
       }
     })
 
@@ -33,10 +33,47 @@ async function AuthenticatePhoneNumber(phoneNumber) {
     if (!response.ok) throw new Error('Authentication failed')
 
     const data = await response.json()
-    localStorage.setItem('accessToken', data.accessToken) // Store access token in local storage
+    localStorage.setItem('billyToken', data.accessToken) // Store access token in local storage
     return data
   } catch (error) {
     console.error('Error authenticating phone number:', error)
+    return null
+  }
+}
+
+// Validate token and fetch client data
+async function getClientByToken() {
+  const accessToken = localStorage.getItem('billyToken')
+  if (!accessToken) {
+    console.log('No token found in localStorage.')
+    return null
+  }
+
+  try {
+    // Validate the token
+    const response = await fetch(`${apiUrl}/auth/verify-token`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
+
+    if (!response.ok) {
+      console.warn('Invalid token.')
+      localStorage.removeItem('billyToken') // Clean up
+      return null
+    }
+
+    const { phoneNumber } = await response.json()
+    if (!phoneNumber) {
+      console.warn('No phone number returned from token validation.')
+      return null
+    }
+
+    console.log('Token valid. Fetching client via phone number...')
+    return await getClientByPhoneNumber(phoneNumber)
+  } catch (error) {
+    console.error('Error validating token or fetching client:', error)
     return null
   }
 }
@@ -49,7 +86,7 @@ async function createClient(clientData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'Authorization': `Bearer ${localStorage.getItem('billyToken')}`
       },
       body: JSON.stringify(clientData)
     })
@@ -67,7 +104,7 @@ async function updateClient(phoneNumber, updates) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'Authorization': `Bearer ${localStorage.getItem('billyToken')}`
       },
       body: JSON.stringify(updates)
     })
@@ -77,6 +114,7 @@ async function updateClient(phoneNumber, updates) {
     console.error('Error updating client:', error)
   }
 }
+
 
 // Send email function
 async function sendCardEmail(client) {
@@ -239,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           }
   
           const authData = await signupResponse.json()
-          localStorage.setItem('accessToken', authData.accessToken)
+          localStorage.setItem('billyToken', authData.accessToken)
           await createClient(clientData)
           await sendCardEmail(clientData)
           console.log('Client created successfully')
@@ -262,6 +300,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Login
   if (document.getElementById('login')) {
+
+    await loginAuth()
 
     document.getElementById('login-btn').addEventListener('click', async function (event) {
       event.preventDefault()
@@ -323,20 +363,39 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Card
   if (document.getElementById('card')) {
     loader.style.display = "block"
+    
     const phoneNumber = getPhoneNumberFromURL()
+    const token = localStorage.getItem('billyToken')
 
+    let client = null
     if (phoneNumber) {
       clearURL()
-      const client = await getClientByPhoneNumber(phoneNumber)
-      console.log(client)
-      document.getElementById("client-name").innerHTML = client.name
-      document.getElementById("current-billies").innerHTML = `${client.currentBillies} / 9`
+      client = await getClientByPhoneNumber(phoneNumber)
+    } else if (token) {
+      client = await getClientByToken()
     } else {
       window.location.href = './path.html'
       console.log('phoneNumber not found in the URL')
     }
-    loader.style.display = "none"
+    console.log(client)
+
+    // Display Card
+    if (client) {
+      document.getElementById("client-name").innerHTML = client.name
+      document.getElementById("current-points").innerHTML = `${client.currentPoints} / 8`
+      loader.style.display = "none"
+    } else {
+      window.location.href = './path.html'
+    }
+
+    // Log out
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      localStorage.removeItem('billyToken')
+      window.location.href = './login.html'
+    })
+
   }
+
 })
 
 
