@@ -1,7 +1,6 @@
 // Billy Burgers - Fidelity Card | Form
 
 const apiUrl = 'https://backend-nqez.onrender.com'
-// const apiUrl = 'http://localhost:3068'
 
 // Fetch client by phone number
 async function getClientByPhoneNumber(phoneNumber) {
@@ -382,7 +381,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Display Card
     if (client) {
       document.getElementById("client-name").innerHTML = client.name
-      document.getElementById("current-points").innerHTML = `${client.currentPoints} / 8`
+      document.getElementById("current-points").innerHTML = `${client.currentBillies} / 9`
       loader.style.display = "none"
     } else {
       window.location.href = './path.html'
