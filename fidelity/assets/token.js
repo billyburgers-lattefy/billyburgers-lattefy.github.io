@@ -4,7 +4,7 @@ async function loginAuth() {
 
     loader.style.display = "block"
   
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = localStorage.getItem('billyToken')
   
     if (accessToken) {
       try {
