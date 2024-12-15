@@ -739,7 +739,7 @@ body#clients .sidebar .menu li:nth-child(2) a {
     padding: 20px;
     border-radius: 12px;
 }
-#purchase .main .container #add-billy-inputs,
+#purchase .main .container #add-points-inputs,
 #purchase .main .container #claim-gift-inputs {
     width: 100%;
 }
@@ -833,9 +833,11 @@ body#stats .sidebar .menu li:nth-child(4) a {
 }
 #campaigns .main .card:nth-child(2) {
     grid-area: c1;
+    align-items: center;
 }
 #campaigns .main .card:nth-child(3) {
     grid-area: c2;
+    align-items: left;
 }
 
 
@@ -854,7 +856,6 @@ body#campaigns .sidebar .menu li:nth-child(5) a {
 #campaigns .main .card {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
 
     padding: 30px 50px;
@@ -913,6 +914,72 @@ body#campaigns .sidebar .menu li:nth-child(5) a {
     margin-right: 10px;
 }
 
+
+/* --------------------------------- Campaigns audience Filter -------------------------------------- */
+
+#campaigns .main .card:nth-child(3) .filter i {
+    font-size: 30px;
+}
+#campaigns .main .card:nth-child(3) .filter {
+    grid-area: c1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+#campaigns .main .card:nth-child(3) .filter-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    width: 95%;
+    margin-bottom: 20px;
+}
+#campaigns .main .card:nth-child(3) select,
+#campaigns .main .card:nth-child(3) input {
+    margin-bottom: 0;
+    height: 35px;
+    border-radius: 5px;
+}
+#campaigns .main .card:nth-child(3) .filter-box select {
+    width: 70%;
+}
+
+/* Sort Filter - Buttons */
+
+#campaigns .main .card:nth-child(3) .filter .filter-btns {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+#campaigns .main .card:nth-child(3) .filter .filter-btns a {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    border: none;
+    transform: translateY(5px);
+    transition: ease-in-out 0.2s;
+}
+#campaigns .main .card:nth-child(3) .filter .filter-btns a:first-child {
+    background-color: var(--light);
+    color: rgb(3, 234, 138);
+}
+#campaigns .main .card:nth-child(3) .filter .filter-btns a:first-child:hover {
+    background-color: rgb(3, 234, 138);
+    color: var(--light);
+}
+#campaigns .main .card:nth-child(3) .filter .filter-btns a:last-child {
+    background-color: var(--light);
+    color: rgb(234, 3, 126);
+}
+#campaigns .main .card:nth-child(3) .filter .filter-btns a:last-child:hover {
+    color: var(--light);
+    background-color: rgb(234, 3, 126);
+}
 
 
 /* ------------------------------------------------------------------------------------------------- */
@@ -1157,7 +1224,10 @@ body#download .sidebar .menu li:nth-child(6) a {
     #campaigns .main .card textarea {
         height: 30%;
     }
-    #campaigns .main .card p {
+    #campaigns .filter {
+        display: none;
+    }
+    #campaigns .card:nth-child(3) {
         display: none;
     }
 

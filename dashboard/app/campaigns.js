@@ -2,6 +2,26 @@
 /* ------------------------------------------- CAMPAIGNS ------------------------------------------- */
 /* ------------------------------------------------------------------------------------------------- */
 
+// Display audience
+async function displayAudienceSize(clients) {
+    console.log('Tamaño de la audiencia:', clients.length)
+    const audienceElement = document.getElementById('audience-size')
+    audienceElement.textContent = `Tamaño de la audiencia: ${clients.length}`
+}
+
+// Function to filter clients
+async function filterClients(clients, variable, condition, value) {
+    console.log(`Filtrando por ${variable} con condición ${condition} y valor "${value}"`)
+    return clients.filter(client => {
+        const clientValue = client[variable]?.toString().toLowerCase() || ''
+        const filterValue = value.toLowerCase()
+
+        if (condition === 'contains') return clientValue.includes(filterValue)
+        if (condition === 'not-contains') return !clientValue.includes(filterValue)
+        return false
+    })
+}
+
 // Function to send emails using EmailJS
 async function sendCampaignEmail(clients, title, content, imageUrl) {
 

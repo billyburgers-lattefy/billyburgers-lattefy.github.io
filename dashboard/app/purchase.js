@@ -63,11 +63,11 @@ async function uploadPurchase (phoneNumber, amountSpentNow) {
     if (isNaN(amountSpentNowNum)) {
         alert('Importe invalido:', amountSpentNow)
         return
-    } 
+    }
 
     const client = await getClientByPhoneNumber(phoneNumber)
 
-    if (client && client.currentBillies < 9) { 
+    if (client && client.currentBillies < 9) {  
 
         const totalExpenditure = client.totalSpent + amountSpentNowNum
 

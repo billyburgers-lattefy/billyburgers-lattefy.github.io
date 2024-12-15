@@ -112,9 +112,37 @@
         </div>
 
         <div class="card">
-            <i class="ph ph-gift"></i>
-            <h3>Birthday Gifts</h3>
-            <p>Enviale un regalo a tus clientes por su cumpleaños. </p>
+            <i class="ph ph-users"></i>
+            <h3>Filtrar audiencia</h3>
+            <p id="audience-size"></p>
+            <div class="filter">
+            
+                <!-- Filter Box -->
+                <div class="filter-box">
+                    <i class="ph ph-funnel-simple"></i>
+                    <select id="filter-variable">
+                        <option value="name">Nombre</option>
+                        <option value="currentBillies">Panditas</option>
+                        <option value="claimedBillies">Tarjetas</option>
+                        <option value="totalSpent">Consumo</option>
+                    </select>
+                    <select id="filter-condition">
+                        <option value="contains">contiene</option>
+                        <option value="not-contains">no contiene</option>
+                    </select>
+                    <input type="text" id="filter-value" placeholder="Ingresar valor">
+                </div>
+    
+                <div class="filter-btns">
+                    <a href="#" id="apply-btn" class="btn">
+                        <i class="ph ph-check"></i>
+                    </a>
+                    <a href="#" id="reset-btn" class="btn">
+                        <i class="ph ph-trash"></i>
+                    </a>
+                </div>
+    
+            </div> 
         </div>
 
     </main>

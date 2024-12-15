@@ -185,6 +185,35 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     })
 
+    let audience
+
+    // Apply clients filter
+    document.getElementById('apply-btn').addEventListener('click', async () => {
+        const variable = document.getElementById('filter-variable').value
+        const condition = document.getElementById('filter-condition').value
+        const value = document.getElementById('filter-value').value.trim()
+
+        if (!variable || !value) {
+            alert('Por favor ingrese valores válidos para filtrar')
+            return
+        }
+
+        // Wait for the filtered clients
+        audience = await filterClients(clients, variable, condition, value)
+        displayAudienceSize(audience)
+        console.log('Audience:', audience)
+    })
+
+    // Reset clients filter
+    document.getElementById('reset-btn').addEventListener('click', () => {
+        audience = clients
+        document.getElementById('filter-variable').selectedIndex = 0
+        document.getElementById('filter-condition').selectedIndex = 0
+        document.getElementById('filter-value').value = ''
+        displayAudienceSize(clients)
+        console.log('filters reset')
+    })
+
     document.getElementById('campaign-btn').addEventListener('click', async (e) => {
       e.preventDefault()
 
