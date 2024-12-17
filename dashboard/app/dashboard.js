@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     })
 
-    let audience
+    let audience = clients
 
     // Apply clients filter
     document.getElementById('apply-btn').addEventListener('click', async () => {
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     
       try {
-        await sendCampaignEmail(audience, title, content, imageUrl)
+        await sendCampaignEmail(clients, title, content, imageUrl)
       } catch (error) {
         console.error('Error sending campaign emails:', error)
         alert('Error sending campaign emails. Please try again.')
