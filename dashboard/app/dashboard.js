@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     
       try {
-        await sendCampaignEmail(clients, title, content, imageUrl)
+        await sendCampaignEmail(audience, title, content, imageUrl)
       } catch (error) {
         console.error('Error sending campaign emails:', error)
         alert('Error sending campaign emails. Please try again.')

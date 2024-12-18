@@ -3,10 +3,10 @@
 /* ------------------------------------------------------------------------------------------------- */
 
 // Display audience
-async function displayAudienceSize(clients) {
-    console.log('Tamaño de la audiencia:', clients.length)
+async function displayAudienceSize(audience) {
+    console.log('Tamaño de la audiencia:', audience.length)
     const audienceElement = document.getElementById('audience-size')
-    audienceElement.textContent = `Tamaño de la audiencia: ${clients.length}`
+    audienceElement.textContent = `Tamaño de la audiencia: ${audience.length}`
 }
 
 // Function to filter clients
