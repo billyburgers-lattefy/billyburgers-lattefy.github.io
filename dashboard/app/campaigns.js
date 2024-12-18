@@ -33,15 +33,19 @@ async function sendCampaignEmail(clients, title, content, imageUrl) {
             }
     
             const templateParams = {
+                from_name: 'Billy Burgers',
+                reply_to: 'billyburgers.lattefy@gmail.com',
+
                 to_email: client.email,
                 name: client.name,
+                
                 title: title,
                 content: content,
                 image_url: imageUrl || ''
             }
 
-            const serviceID = 'service_u4c98ke';
-            const templateID = 'template_mpgivn4';
+            const serviceID = 'service_gvhjjd5';
+            const templateID = 'template_d029ld1';
     
             await emailjs.send(serviceID, templateID, templateParams)
     
