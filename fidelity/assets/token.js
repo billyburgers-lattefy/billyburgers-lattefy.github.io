@@ -26,14 +26,14 @@ async function loginAuth() {
         } else {
   
           console.log('Invalid token, clearing localStorage.')
-          //localStorage.removeItem('accessToken')
+          //localStorage.removeItem('billyToken')
           loader.style.display = "none" 
   
         }
   
       } catch (error) {
         console.error('Error validating token:', error)
-        localStorage.removeItem('accessToken')
+        localStorage.removeItem('billyToken')
         loader.style.display = "none" 
       }
       

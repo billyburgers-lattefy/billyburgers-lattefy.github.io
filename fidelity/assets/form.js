@@ -1,6 +1,7 @@
 // Billy Burgers - Fidelity Card | Form
 
 const apiUrl = 'https://backend-nqez.onrender.com'
+// const apiUrl = 'http://localhost:3068'
 
 // Fetch client by phone number
 async function getClientByPhoneNumber(phoneNumber) {
@@ -124,14 +125,18 @@ async function sendCardEmail(client) {
   try {
   
       const templateParams = {
-          to_email: client.email,
-          name: client.name,
-          title: title,
-          image_url: imageUrl || ''
+        from_name: 'Billy Burgers',
+        reply_to: 'billyburgers.lattefy@gmail.com',
+
+        to_email: client.email,
+        name: client.name,
+
+        title: title,
+        image_url: imageUrl || ''
       }
 
-      const serviceID = 'service_u4c98ke'
-      const templateID = 'template_jl1x1mv'
+      const serviceID = 'service_gvhjjd5'
+      const templateID = 'template_ds5krec'
 
       await emailjs.send(serviceID, templateID, templateParams)
 
