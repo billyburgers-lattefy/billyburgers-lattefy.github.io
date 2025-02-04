@@ -12,15 +12,32 @@ async function displayAudienceSize(audience) {
 // Function to filter clients
 async function filterClients(clients, variable, condition, value) {
     console.log(`Filtrando por ${variable} con condición ${condition} y valor "${value}"`)
+
     return clients.filter(client => {
-        const clientValue = client[variable]?.toString().toLowerCase() || ''
+        const clientValue = client[variable]
+
+        // Handle date comparison
+        if (variable === 'startDate' && clientValue) {
+            const clientDate = new Date(clientValue)
+            const filterDate = new Date(value)
+
+            if (isNaN(clientDate) || isNaN(filterDate)) return false // Invalid dates
+
+            if (condition === 'greater-than') return clientDate > filterDate
+            if (condition === 'smaller-than') return clientDate < filterDate
+        }
+
+        // Handle string comparison
+        const clientStringValue = clientValue?.toString().toLowerCase() || ''
         const filterValue = value.toLowerCase()
 
-        if (condition === 'contains') return clientValue.includes(filterValue)
-        if (condition === 'not-contains') return !clientValue.includes(filterValue)
+        if (condition === 'contains') return clientStringValue.includes(filterValue)
+        if (condition === 'not-contains') return !clientStringValue.includes(filterValue)
+
         return false
     })
 }
+
 
 
 async function sendCampaignEmail(clients, title, content, imageUrl) {
